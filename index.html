@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grid & Gear | Compare & Shop</title>
+  <title>Grid &amp; Gear | Compare &amp; Shop</title>
 
   <style>
     :root {
@@ -15,7 +14,6 @@
       --white: #ffffff;
       --muted: #687386;
       --border: #e1e5eb;
-      --green: #16834a;
     }
 
     * {
@@ -36,7 +34,8 @@
       text-decoration: none;
     }
 
-    button, input, select {
+    button,
+    input {
       font: inherit;
     }
 
@@ -49,7 +48,6 @@
       margin: auto;
     }
 
-    /* Header */
     header {
       background: var(--dark);
       color: var(--white);
@@ -84,11 +82,10 @@
       color: #ff7b83;
     }
 
-    /* Hero */
     .hero {
       background:
         linear-gradient(90deg, rgba(12,15,20,.96), rgba(12,15,20,.58)),
-        url("hero.jpg") center/cover;
+        url("images/hero.jpg") center/cover;
       color: white;
       padding: 65px 0;
     }
@@ -131,20 +128,16 @@
       background: #c92533;
     }
 
-    /* Search and categories */
     .toolbar {
       padding: 28px 0 18px;
     }
 
     .search-row {
-      display: flex;
-      gap: 12px;
       margin-bottom: 18px;
     }
 
     .search-row input {
-      flex: 1;
-      min-width: 0;
+      width: 100%;
       padding: 13px 15px;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -172,16 +165,11 @@
       border-color: var(--dark);
     }
 
-    /* Products */
     .section {
       padding: 22px 0 48px;
     }
 
     .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 15px;
       margin-bottom: 20px;
     }
 
@@ -207,6 +195,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     .product-image {
@@ -272,7 +261,6 @@
       border-radius: 10px;
     }
 
-    /* Comparison dialog */
     .dialog-backdrop {
       display: none;
       position: fixed;
@@ -366,6 +354,7 @@
       text-align: center;
       background: var(--dark);
       color: white;
+      border: 0;
       border-radius: 7px;
       padding: 10px 13px;
       font-size: 13px;
@@ -386,7 +375,6 @@
       font-size: 12px;
     }
 
-    /* Footer */
     footer {
       background: var(--dark);
       color: white;
@@ -407,7 +395,6 @@
       margin-top: 8px;
     }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -453,10 +440,9 @@
 </head>
 
 <body>
-
   <header>
     <div class="container navbar">
-      <a class="logo" href="#">G&G <span>|</span> GRID & GEAR</a>
+      <a class="logo" href="#">G&amp;G <span>|</span> GRID &amp; GEAR</a>
 
       <nav>
         <a href="#">Home</a>
@@ -504,17 +490,14 @@
 
     <section class="section" id="products">
       <div class="section-heading">
-        <div>
-          <h2>Featured products</h2>
-          <p>Compare prices and choose your preferred store.</p>
-        </div>
+        <h2>Featured products</h2>
+        <p>Compare prices and choose your preferred store.</p>
       </div>
 
       <div class="product-grid" id="productGrid"></div>
     </section>
   </main>
 
-  <!-- Product comparison dialog -->
   <div
     class="dialog-backdrop"
     id="comparisonDialog"
@@ -555,7 +538,7 @@
   <footer>
     <div class="container footer-content">
       <div>
-        <div class="logo">G&G <span>|</span> Grid & Gear</div>
+        <div class="logo">G&amp;G <span>|</span> Grid &amp; Gear</div>
         <p>
           An independent product discovery website. We compare
           products from online retailers and may earn commissions
@@ -573,16 +556,8 @@
   <script>
     /*
       EDIT YOUR PRODUCTS HERE.
-
-      For each product:
-      - name: product title
-      - category: Fashion, Tech, Fitness, or Motorsport
-      - image: image file path inside your images folder
-      - description: short product description
-      - stores: retailer name, price, and your affiliate link
-
-      Replace the example prices and links with accurate information.
-      Do not use a retailer's normal URL when you need an affiliate URL.
+      Replace sample prices and placeholder links with accurate details.
+      Keep each image filename exactly the same as the file in images/.
     */
 
     const products = [
@@ -602,7 +577,7 @@
           {
             name: "Myntra",
             price: 549,
-            link: "PASTE_MY NTRA_AFFILIATE_LINK_HERE".replace(" ", "")
+            link: "PASTE_MYNTRA_AFFILIATE_LINK_HERE"
           },
           {
             name: "Flipkart",
@@ -627,7 +602,7 @@
           {
             name: "Myntra",
             price: 1399,
-            link: "PASTE_MY NTRA_AFFILIATE_LINK_HERE".replace(" ", "")
+            link: "PASTE_MYNTRA_AFFILIATE_LINK_HERE"
           },
           {
             name: "Flipkart",
@@ -692,7 +667,7 @@
           {
             name: "Myntra",
             price: 599,
-            link: "PASTE_MY NTRA_AFFILIATE_LINK_HERE".replace(" ", "")
+            link: "PASTE_MYNTRA_AFFILIATE_LINK_HERE"
           }
         ]
       }
@@ -701,49 +676,46 @@
     const productGrid = document.getElementById("productGrid");
     const searchInput = document.getElementById("searchInput");
     const categoryButtons = document.querySelectorAll(".category-btn");
-
     const dialog = document.getElementById("comparisonDialog");
-    const closeDialog = document.getElementById("closeDialog");
+    const closeDialogButton = document.getElementById("closeDialog");
 
     let selectedCategory = "All";
+
+    function formatPrice(price) {
+      return "₹" + Number(price).toLocaleString("en-IN");
+    }
 
     function getLowestPrice(product) {
       return Math.min(...product.stores.map(store => store.price));
     }
 
-    function formatPrice(price) {
-      return "₹" + price.toLocaleString("en-IN");
-    }
-
     function renderProducts() {
       const query = searchInput.value.trim().toLowerCase();
 
-      const filtered = products.filter(product => {
+      const filteredProducts = products.filter(product => {
         const matchesCategory =
           selectedCategory === "All" ||
           product.category === selectedCategory;
 
-        const matchesSearch =
-          product.name.toLowerCase().includes(query) ||
-          product.category.toLowerCase().includes(query) ||
-          product.description.toLowerCase().includes(query);
+        const searchableText =
+          `${product.name} ${product.category} ${product.description}`.toLowerCase();
 
-        return matchesCategory && matchesSearch;
+        return matchesCategory && searchableText.includes(query);
       });
 
-      if (filtered.length === 0) {
+      if (filteredProducts.length === 0) {
         productGrid.innerHTML =
           '<div class="empty">No products found. Try another search.</div>';
         return;
       }
 
-      productGrid.innerHTML = filtered.map(product => `
+      productGrid.innerHTML = filteredProducts.map(product => `
         <article class="product-card">
           <img
             class="product-image"
             src="${product.image}"
             alt="${product.name}"
-            onerror="this.onerror=null;this.src='placeholder.jpg';"
+            onerror="this.style.display='none';"
           >
 
           <div class="product-info">
@@ -778,9 +750,14 @@
       const product = products.find(item => item.id === productId);
       if (!product) return;
 
-      document.getElementById("dialogTitle").textContent = "Compare stores";
-      document.getElementById("dialogImage").src = product.image;
-      document.getElementById("dialogImage").alt = product.name;
+      const dialogImage = document.getElementById("dialogImage");
+      dialogImage.src = product.image;
+      dialogImage.alt = product.name;
+      dialogImage.onerror = () => {
+        dialogImage.style.display = "none";
+      };
+      dialogImage.style.display = "block";
+
       document.getElementById("dialogProductName").textContent = product.name;
       document.getElementById("dialogDescription").textContent =
         product.description;
@@ -796,10 +773,10 @@
             store.link.startsWith("PASTE_") ||
             store.link.trim() === "";
 
-          const button = isPlaceholder
+          const storeButton = isPlaceholder
             ? `<button class="store-btn" type="button"
                  data-missing-link="${store.name}">
-                 Add affiliate link
+                 Affiliate link not added
                </button>`
             : `<a class="store-btn"
                  href="${store.link}"
@@ -812,7 +789,7 @@
             <div class="store-row">
               <div class="store-name">${store.name}</div>
               <div class="store-price">${formatPrice(store.price)}</div>
-              ${button}
+              ${storeButton}
             </div>
           `;
         }).join("");
@@ -822,14 +799,14 @@
           alert(
             "Your " + button.dataset.missingLink +
             " affiliate link has not been added yet. " +
-            "Replace the placeholder in the products array inside index.html."
+            "Replace its placeholder in the products array in index.html."
           );
         });
       });
 
       dialog.classList.add("open");
       document.body.style.overflow = "hidden";
-      closeDialog.focus();
+      closeDialogButton.focus();
     }
 
     function hideComparison() {
@@ -865,7 +842,7 @@
     });
 
     searchInput.addEventListener("input", renderProducts);
-    closeDialog.addEventListener("click", hideComparison);
+    closeDialogButton.addEventListener("click", hideComparison);
 
     dialog.addEventListener("click", event => {
       if (event.target === dialog) hideComparison();
@@ -877,6 +854,5 @@
 
     renderProducts();
   </script>
-
 </body>
 </html>
