@@ -1982,6 +1982,12 @@ function navigate(route){
         return;
     }
 
+    if(route === "admin"){
+        showPage("adminPage");
+        history.replaceState(null,"","#admin");
+        return;
+    }
+
     if(categoryData[route]){
         openGenericCategory(route);
         return;
