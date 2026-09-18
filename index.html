@@ -978,7 +978,7 @@ main{
 
     .header-search{
         display:none;
-    }
+        }
 
     .hero h1{
         font-size:55px;
@@ -988,6 +988,95 @@ main{
         height:400px;
     }
 }
+
+
+/* =========================
+   ADMIN DASHBOARD
+========================= */
+
+.admin-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:40px 20px 80px;
+}
+
+.admin-header{
+    margin-bottom:35px;
+}
+
+.admin-header h1{
+    margin:0 0 10px;
+    font-size:36px;
+    font-weight:800;
+}
+
+.admin-header p{
+    margin:0;
+    color:#9ca3af;
+    font-size:15px;
+}
+
+.admin-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.admin-card{
+    background:#11131a;
+    border:1px solid #292d38;
+    border-radius:16px;
+    padding:28px;
+    min-height:250px;
+}
+
+.admin-card-icon{
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#202334;
+    border-radius:12px;
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.admin-card h2{
+    margin:0 0 10px;
+    font-size:21px;
+}
+
+.admin-card p{
+    color:#9ca3af;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:24px;
+}
+
+.admin-action-btn{
+    border:0;
+    border-radius:9px;
+    padding:11px 18px;
+    background:#5555ff;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+@media(max-width:800px){
+
+    .admin-container{
+        padding:30px 16px 60px;
+    }
+
+    .admin-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
 </style>
 </head>
 
