@@ -1,4838 +1,1501 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>
-    Grid & Gear | Style, Tech & Everyday Gear
-</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="cuelinks-verification" content="VERIFY-CL-7K30XC">
+<meta name="google-site-verification" content="2rR_wpwFFX8C97Pzwx1rfhKcbuHM40FPzk78mANEY6E">
+<title>Grid &amp; Gear | Style, Tech &amp; Everyday Gear</title>
+<meta name="description" content="Discover fashion, beauty, tech, fitness and everyday gear. Compare products across stores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --ink:       #0c0d12;
+  --ink-2:     #1a1c26;
+  --paper:     #f5f5f2;
+  --white:     #ffffff;
+  --muted:     #888d9e;
+  --line:      #e6e7eb;
+  --a:         #3b5bdb;
+  --a2:        #7048e8;
+  --a-glow:    rgba(59,91,219,.15);
+  --green:     #12b76a;
+  --amber:     #f79009;
+  --red:       #f04438;
+  --r-sm:      8px;
+  --r:         16px;
+  --r-lg:      24px;
+  --r-xl:      32px;
+  --ease:      cubic-bezier(.22,1,.36,1);
+  --t:         .38s;
+  --shadow:    0 2px 8px rgba(12,13,18,.07),0 12px 32px rgba(12,13,18,.06);
+  --shadow-lg: 0 8px 24px rgba(12,13,18,.11),0 28px 64px rgba(12,13,18,.08);
 }
 
-:root{
-    --bg:#090a0f;
-    --panel:#11131b;
-    --panel2:#171a25;
-    --border:#292d3b;
-    --text:#f7f7fa;
-    --muted:#969aaa;
-    --blue:#8096ff;
-    --blue2:#566ff0;
-    --green:#35d39a;
-    --danger:#ff5c72;
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;cursor:pointer}
+img{max-width:100%;display:block}
+.container{width:min(1220px,92%);margin:0 auto}
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
-}
-
-button,
-input,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-
-/* =========================================================
+/* ══════════════════════════════════════════════
    HEADER
-========================================================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    height:76px;
-    background:rgba(22,23,29,.96);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid #292a31;
+══════════════════════════════════════════════ */
+.site-header{
+  position:sticky;top:0;z-index:90;
+  background:rgba(12,13,18,.88);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-
-.header-inner{
-    max-width:1420px;
-    height:100%;
-    margin:auto;
-    padding:0 28px;
-    display:flex;
-    align-items:center;
-    gap:30px;
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:11px;color:#fff}
+.brand-mark{
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:grid;place-items:center;
+  font-family:'Syne',sans-serif;font-size:10px;font-weight:800;color:#fff;letter-spacing:-.5px
 }
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    min-width:230px;
+.brand-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;letter-spacing:.4px}
+.brand-name em{color:#8da4ff;font-style:normal}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap}
+.nav-links a{
+  color:rgba(255,255,255,.5);font-size:12.5px;font-weight:500;
+  padding:6px 11px;border-radius:7px;
+  transition:color .2s,background .2s
 }
-
-.logo-box{
-    width:42px;
-    height:42px;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#5268ff,#7c45f5);
-    font-weight:900;
-    font-size:12px;
-}
-
-.logo-text{
-    font-size:21px;
-    font-weight:900;
-    letter-spacing:2px;
-    white-space:nowrap;
-}
-
-.logo-text span{
-    color:#8b9cff;
-}
-
-.header-search{
-    flex:1;
-    max-width:450px;
-    position:relative;
-}
-
-.header-search input{
-    width:100%;
-    padding:13px 18px 13px 44px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    outline:none;
-    background:#10121a;
-    color:white;
-}
-
-.header-search input:focus{
-    border-color:#6078ff;
-}
-
-.search-icon{
-    position:absolute;
-    left:16px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#818697;
-}
-
-.header-actions{
-    margin-left:auto;
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.09)}
+.header-actions{display:flex;gap:8px}
 .header-btn{
-    border:1px solid #3a3c46;
-    background:#292a31;
-    color:white;
-    padding:12px 16px;
-    border-radius:10px;
-    font-weight:700;
+  padding:8px 16px;border-radius:8px;font-size:12.5px;font-weight:600;border:0;
+  transition:transform .2s,background .2s,box-shadow .2s
 }
+.header-btn:hover{transform:translateY(-1px)}
+.header-btn-ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff}
+.header-btn-ghost:hover{background:rgba(255,255,255,.15)}
+.header-btn-primary{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;box-shadow:0 3px 12px rgba(59,91,219,.35)}
+.header-btn-primary:hover{box-shadow:0 6px 20px rgba(59,91,219,.5)}
 
-.header-btn:hover{
-    background:#353743;
-}
+/* ══════════════════════════════════════════════
+   PAGE TABS (view switcher)
+══════════════════════════════════════════════ */
+.page-view{display:none}
+.page-view.active{display:block}
 
-.cart-btn{
-    position:relative;
-}
-
-.cart-count{
-    position:absolute;
-    top:-7px;
-    right:-7px;
-    min-width:20px;
-    height:20px;
-    padding:0 5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    background:#7388ff;
-    color:white;
-    font-size:11px;
-    font-weight:bold;
-}
-
-
-/* =========================================================
-   PAGE
-========================================================= */
-
-main{
-    max-width:1420px;
-    margin:auto;
-    padding:0 28px 70px;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
 .hero{
-    min-height:610px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    align-items:center;
-    gap:50px;
+  background:var(--ink);color:#fff;
+  overflow:hidden;position:relative;
+  padding:clamp(80px,11vw,140px) 0 clamp(70px,10vw,120px)
 }
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 17px;
-    border:1px solid #3145a2;
-    border-radius:30px;
-    color:#a1b0ff;
-    font-size:13px;
-    margin-bottom:30px;
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 65% at 72% 50%,rgba(59,91,219,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 38% 50% at 18% 80%,rgba(112,72,232,.16) 0%,transparent 60%);
 }
-
-.badge-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#8297ff;
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.5) 20%,rgba(0,0,0,.5) 80%,transparent)
 }
-
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-content{animation:fadeUp .8s var(--ease) both}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:26px;
+  padding:6px 14px;border-radius:100px;
+  border:1px solid rgba(59,91,219,.4);background:rgba(59,91,219,.12);
+  color:#a5b4fc;font-size:11.5px;font-weight:500
+}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:#818cf8;animation:pulse 2s ease infinite}
 .hero h1{
-    font-size:clamp(58px,7vw,105px);
-    line-height:.88;
-    letter-spacing:-5px;
-    max-width:650px;
-}
-
-.hero h1 span{
-    color:#8498ff;
-}
-
-.hero-description{
-    margin-top:30px;
-    color:var(--muted);
-    max-width:520px;
-    line-height:1.7;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    margin-top:30px;
-}
-
-.primary-btn{
-    background:var(--blue);
-    color:white;
-    border:0;
-    padding:14px 22px;
-    border-radius:11px;
-    font-weight:800;
-}
-
-.primary-btn:hover{
-    background:#91a2ff;
-}
-
-.secondary-btn{
-    background:transparent;
-    color:white;
-    border:1px solid var(--border);
-    padding:14px 22px;
-    border-radius:11px;
-    font-weight:700;
-}
-
-
-/* =========================================================
-   HERO CARD
-========================================================= */
-
-.hero-card{
-    position:relative;
-    min-height:390px;
-    border:1px solid #303448;
-    border-radius:25px;
-    background:
-        radial-gradient(
-            circle at 80% 25%,
-            rgba(87,108,255,.25),
-            transparent 35%
-        ),
-        linear-gradient(145deg,#151925,#0e1018);
-    padding:30px;
-    overflow:hidden;
-}
-
-.hero-card h3{
-    color:#888d9e;
-    font-size:12px;
-    letter-spacing:1px;
-    margin-bottom:20px;
-}
-
-.pick{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:16px;
-    margin:10px 0;
-    background:rgba(100,110,180,.17);
-    border:1px solid rgba(130,145,255,.18);
-    border-radius:13px;
-}
-
-.pick-icon{
-    width:43px;
-    height:43px;
-    border-radius:9px;
-    background:linear-gradient(135deg,#7052f5,#836aff);
-}
-
-.pick:nth-child(3) .pick-icon{
-    background:linear-gradient(135deg,#ff8b00,#ff423b);
-}
-
-.pick:nth-child(4) .pick-icon{
-    background:linear-gradient(135deg,#15c891,#4688ff);
-}
-
-.pick-name{
-    flex:1;
-    font-weight:700;
-}
-
-.pick-price{
-    color:#aebaff;
-    font-weight:bold;
-}
-
-
-/* =========================================================
-   CATEGORY
-========================================================= */
-
-.section-title{
-    font-size:32px;
-    margin-bottom:25px;
-}
-
-.category-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-}
-
-.category-card{
-    min-height:180px;
-    padding:25px;
-    border-radius:18px;
-    border:1px solid var(--border);
-    background:linear-gradient(145deg,#131620,#0e1017);
-    transition:.25s;
-    cursor:pointer;
-    position:relative;
-    overflow:hidden;
-}
-
-.category-card:hover{
-    transform:translateY(-4px);
-    border-color:#596fff;
-    background:#151925;
-}
-
-.category-icon{
-    font-size:35px;
-    margin-bottom:25px;
-}
-
-.category-card h3{
-    font-size:20px;
-}
-
-.category-card p{
-    color:var(--muted);
-    margin-top:8px;
-    font-size:13px;
-}
-
-
-/* =========================================================
-   CATEGORY PAGE
-========================================================= */
-
-.category-page-head{
-    padding:60px 0 35px;
-}
-
-.breadcrumb{
-    color:#85899b;
-    font-size:13px;
-    margin-bottom:18px;
-}
-
-.category-page-head h1{
-    font-size:55px;
-    letter-spacing:-2px;
-}
-
-.category-page-head p{
-    margin-top:12px;
-    color:var(--muted);
-}
-
-.gender-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    margin:20px 0 50px;
-}
-
-.gender-card{
-    min-height:240px;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:30px;
-    background:
-        radial-gradient(
-            circle at 80% 30%,
-            rgba(98,118,255,.18),
-            transparent 35%
-        ),
-        #12151e;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.gender-card:hover{
-    transform:translateY(-5px);
-    border-color:#6379ff;
-}
-
-.gender-card .gender-icon{
-    font-size:50px;
-    margin-bottom:40px;
-}
-
-.gender-card h2{
-    font-size:30px;
-}
-
-.gender-card p{
-    color:var(--muted);
-    margin-top:8px;
-}
-
-
-/* =========================================================
-   SHOP
-========================================================= */
-
-.shop-head{
-    padding:45px 0 25px;
-}
-
-.shop-head h1{
-    font-size:38px;
-}
-
-.shop-head p{
-    color:var(--muted);
-    margin-top:8px;
-}
-
-.subcategory-bar{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin:25px 0;
-}
-
-.subcategory-btn{
-    padding:10px 15px;
-    border:1px solid var(--border);
-    background:#12151d;
-    color:#ddd;
-    border-radius:9px;
-}
-
-.subcategory-btn:hover,
-.subcategory-btn.active{
-    border-color:#687eff;
-    background:#1d2544;
-    color:#aab6ff;
-}
-
-.shop-controls{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-top:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-    padding:15px 0;
-    margin-bottom:25px;
-}
-
-.shop-controls-left{
-    display:flex;
-    gap:10px;
-}
-
-.control-btn,
-.sort-select{
-    padding:10px 13px;
-    border:1px solid var(--border);
-    border-radius:8px;
-    background:#11131a;
-    color:white;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-}
-
-
-/* =========================================================
-   PRODUCT CARD
-========================================================= */
-
-.product-card{
-    border:1px solid var(--border);
-    background:#11131b;
-    border-radius:16px;
-    overflow:hidden;
-    transition:.25s;
-}
-
-.product-card:hover{
-    transform:translateY(-4px);
-    border-color:#485bce;
-}
-
-.product-image{
-    height:270px;
-    background:
-        radial-gradient(
-            circle at 50% 35%,
-            rgba(111,130,255,.22),
-            transparent 40%
-        ),
-        #181b26;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:70px;
-    position:relative;
-}
-
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.wishlist{
-    position:absolute;
-    top:12px;
-    right:12px;
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    border:1px solid #3b3e4c;
-    background:rgba(5,6,10,.7);
-    color:white;
-}
-
-.product-info{
-    padding:17px;
-}
-
-.product-brand{
-    color:#85899b;
-    font-size:12px;
-    margin-bottom:6px;
-}
-
-.product-name{
-    font-size:15px;
-    font-weight:700;
-}
-
-.product-meta{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:12px;
-}
-
-.product-price{
-    font-weight:900;
-}
-
-.rating{
-    color:#f7c84c;
-    font-size:13px;
-}
-
-.card-actions{
-    display:flex;
-    gap:8px;
-    margin-top:14px;
-}
-
-.card-actions button{
-    flex:1;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid var(--border);
-    background:#181b24;
-    color:white;
-    font-weight:700;
-}
-
-.card-actions .add{
-    background:#647aff;
-    border-color:#647aff;
-}
-
-
-/* =========================================================
-   PRODUCT DETAIL
-========================================================= */
-
-.product-detail{
-    padding:50px 0;
-}
-
-.product-detail-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:50px;
-}
-
-.detail-image{
-    height:560px;
-    border-radius:20px;
-    border:1px solid var(--border);
-    background:#141722;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:130px;
-    overflow:hidden;
-}
-
-.detail-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.detail-info h1{
-    font-size:42px;
-    margin:15px 0;
-}
-
-.detail-brand{
-    color:#85899b;
-}
-
-.detail-price{
-    font-size:30px;
-    font-weight:900;
-    margin:20px 0;
-}
-
-.detail-description{
-    color:#999eaf;
-    line-height:1.7;
-}
-
-.option-title{
-    font-weight:bold;
-    margin:25px 0 10px;
-}
-
-.size-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.size-btn{
-    width:48px;
-    height:43px;
-    border:1px solid var(--border);
-    background:#12151d;
-    color:white;
-    border-radius:7px;
-}
-
-.size-btn.active{
-    border-color:#7184ff;
-    background:#222c55;
-}
-
-.detail-actions{
-    display:flex;
-    gap:10px;
-    margin-top:30px;
-}
-
-.detail-actions button{
-    flex:1;
-}
-
-
-/* =========================================================
-   CART
-========================================================= */
-
-.cart-page{
-    padding:50px 0;
-}
-
-.cart-page h1{
-    font-size:42px;
-    margin-bottom:30px;
-}
-
-.cart-layout{
-    display:grid;
-    grid-template-columns:1fr 350px;
-    gap:25px;
-}
-
-.cart-items{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-}
-
-.cart-item{
-    display:grid;
-    grid-template-columns:100px 1fr auto;
-    gap:18px;
-    align-items:center;
-    border:1px solid var(--border);
-    background:#11131b;
-    border-radius:14px;
-    padding:14px;
-}
-
-.cart-image{
-    width:100px;
-    height:100px;
-    border-radius:10px;
-    background:#191c27;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    overflow:hidden;
-}
-
-.cart-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.cart-name{
-    font-weight:800;
-}
-
-.cart-price{
-    color:#a9b4ff;
-    margin-top:7px;
-}
-
-.qty{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:15px;
-}
-
-.qty button{
-    width:30px;
-    height:30px;
-    border:1px solid var(--border);
-    background:#171a23;
-    color:white;
-    border-radius:6px;
-}
-
-.remove-btn{
-    margin-top:10px;
-    color:#ff7182;
-    background:none;
-    border:0;
-}
-
-.summary{
-    height:max-content;
-    border:1px solid var(--border);
-    background:#11131b;
-    border-radius:16px;
-    padding:24px;
-    position:sticky;
-    top:100px;
-}
-
-.summary h2{
-    margin-bottom:20px;
-}
-
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    color:#a3a7b5;
-}
-
-.summary-total{
-    border-top:1px solid var(--border);
-    margin-top:10px;
-    padding-top:18px;
-    display:flex;
-    justify-content:space-between;
-    font-size:20px;
-    font-weight:900;
-}
-
-.checkout-btn{
-    width:100%;
-    margin-top:22px;
-    padding:14px;
-    border:0;
-    border-radius:9px;
-    background:#7185ff;
-    color:white;
-    font-weight:900;
-}
-
-
-/* =========================================================
-   ADMIN DASHBOARD
-========================================================= */
-
-.admin-container{
-    max-width:1200px;
-    margin:0 auto;
-    padding:55px 20px 80px;
-}
-
-.admin-header{
-    margin-bottom:35px;
-}
-
-.admin-header h1{
-    margin:0 0 10px;
-    font-size:42px;
-    font-weight:900;
-    letter-spacing:-1px;
-}
-
-.admin-header p{
-    margin:0;
-    color:var(--muted);
-    font-size:15px;
-}
-
-.admin-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-.admin-card{
-    background:
-        linear-gradient(
-            145deg,
-            #151824,
-            #101219
-        );
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:28px;
-    min-height:285px;
-    transition:.25s;
-}
-
-.admin-card:hover{
-    transform:translateY(-5px);
-    border-color:#596fff;
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
-}
-
-.admin-card-icon{
-    width:52px;
-    height:52px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#202640;
-    border:1px solid #30385b;
-    border-radius:13px;
-    font-size:23px;
-    margin-bottom:22px;
-}
-
-.admin-card h2{
-    margin:0 0 12px;
-    font-size:21px;
-}
-
-.admin-card p{
-    color:#9ca3af;
-    line-height:1.6;
-    font-size:14px;
-    margin-bottom:25px;
-}
-
-.admin-action-btn{
-    border:0;
-    border-radius:9px;
-    padding:12px 18px;
-    background:#647aff;
-    color:white;
-    font-size:14px;
-    font-weight:700;
-    transition:.2s;
-}
-
-.admin-action-btn:hover{
-    background:#7b8dff;
-    transform:translateY(-1px);
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:2000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.72);
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(450px,100%);
-    border:1px solid var(--border);
-    background:#12141c;
-    border-radius:18px;
-    padding:25px;
-}
-
-.modal-box h2{
-    margin-bottom:20px;
-}
-
-.form-group{
-    margin-bottom:15px;
-}
-
-.form-group label{
-    display:block;
-    font-size:13px;
-    color:#9297a7;
-    margin-bottom:7px;
-}
-
-.form-group input,
-.form-group select{
-    width:100%;
-    padding:12px;
-    border:1px solid var(--border);
-    border-radius:8px;
-    background:#0d0f15;
-    color:white;
-    outline:none;
-}
-
-.modal-actions{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-}
-
-.modal-actions button{
-    flex:1;
-}
-
-
-/* =========================================================
+  font-family:'Syne',sans-serif;
+  font-size:clamp(44px,7vw,82px);font-weight:800;line-height:.97;
+  letter-spacing:-2.5px;margin-bottom:26px
+}
+.hero h1 span{color:#8da4ff}
+.hero-sub{color:rgba(255,255,255,.5);font-size:clamp(14px,1.8vw,17px);font-weight:300;line-height:1.75;margin-bottom:34px;max-width:480px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:48px}
+.hero-stats{display:flex;gap:36px;padding-top:36px;border-top:1px solid rgba(255,255,255,.08);animation:fadeUp .8s .4s var(--ease) both}
+.stat-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;background:linear-gradient(135deg,#fff,#9fb4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:11.5px;color:rgba(255,255,255,.38);margin-top:2px}
+.hero-visual{position:relative;animation:fadeUp .8s .15s var(--ease) both}
+.hero-card-stack{position:relative;height:320px}
+.hero-card-bg{
+  position:absolute;bottom:0;right:0;width:88%;height:90%;
+  border-radius:var(--r-lg);
+  background:linear-gradient(135deg,rgba(59,91,219,.25),rgba(112,72,232,.2));
+  border:1px solid rgba(255,255,255,.1)
+}
+.hero-card-main{
+  position:absolute;top:0;left:0;width:88%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-lg);backdrop-filter:blur(12px);
+  padding:28px;
+  animation:floatCard 4s ease-in-out infinite
+}
+.hero-card-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px}
+.hero-card-products{display:flex;flex-direction:column;gap:10px}
+.hero-mini-product{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08)
+}
+.hero-mini-swatch{width:36px;height:36px;border-radius:8px;flex-shrink:0}
+.hero-mini-name{font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
+.hero-mini-price{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#8da4ff;margin-left:auto}
+.hero-pill{
+  position:absolute;bottom:-16px;right:20px;
+  padding:10px 16px;border-radius:100px;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;font-size:12px;font-weight:600;
+  box-shadow:0 8px 24px rgba(59,91,219,.45);
+  animation:floatPill 3.5s 1s ease-in-out infinite
+}
+
+/* ══════════════════════════════════════════════
+   BTNS
+══════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:12px 22px;border-radius:var(--r-sm);border:0;
+  font-size:13.5px;font-weight:600;
+  transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease),background var(--t)
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;box-shadow:0 4px 16px rgba(59,91,219,.38)}
+.btn-primary:hover{box-shadow:0 8px 28px rgba(59,91,219,.52)}
+.btn-ghost{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.8)}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:var(--a)}
+.btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--a);color:var(--a)}
+.btn-sm{padding:9px 16px;font-size:12.5px}
+
+/* ══════════════════════════════════════════════
+   HOW IT WORKS
+══════════════════════════════════════════════ */
+.how-section{padding:72px 0 0}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.how-item{
+  background:var(--white);padding:38px 32px;
+  transition:background var(--t)
+}
+.how-item:hover{background:#fafbff}
+.how-num{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;color:var(--line);line-height:1;margin-bottom:18px;user-select:none;transition:color var(--t)}
+.how-item:hover .how-num{color:#d4dcff}
+.how-icon{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#eef2ff,#e0e7ff);display:grid;place-items:center;font-size:18px;margin-bottom:14px}
+.how-title{font-family:'Syne',sans-serif;font-size:16.5px;font-weight:700;margin-bottom:8px}
+.how-desc{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+/* ══════════════════════════════════════════════
+   CATEGORY SHOWCASE STRIP
+══════════════════════════════════════════════ */
+.cat-showcase{padding:56px 0 0}
+.cat-scroll{
+  display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;
+  scrollbar-width:none
+}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-card{
+  flex-shrink:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+  width:110px;height:110px;border-radius:var(--r);
+  background:var(--white);border:1.5px solid var(--line);
+  font-size:12.5px;font-weight:600;color:var(--ink-2);
+  transition:border-color var(--t),background var(--t),transform var(--t),box-shadow var(--t);
+  cursor:pointer
+}
+.cat-card:hover,.cat-card.active{
+  border-color:var(--a);background:#eef2ff;
+  transform:translateY(-3px);box-shadow:0 8px 24px rgba(59,91,219,.14)
+}
+.cat-card.active .cat-emoji{transform:scale(1.15)}
+.cat-emoji{font-size:28px;transition:transform var(--t)}
+
+/* ══════════════════════════════════════════════
+   SHOP SECTION
+══════════════════════════════════════════════ */
+.shop-section{padding:52px 0 80px}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px}
+.section-sup{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--a);text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(25px,4vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.1}
+.section-sub{max-width:360px;font-size:13.5px;color:var(--muted);line-height:1.65}
+
+/* Controls */
+.shop-controls{display:grid;grid-template-columns:260px 1fr auto;gap:12px;align-items:center;margin-bottom:20px}
+.search-wrap{position:relative}
+.search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;flex-shrink:0}
+.search-wrap input{
+  width:100%;min-height:44px;padding:10px 14px 10px 40px;
+  border:1.5px solid var(--line);border-radius:var(--r-sm);
+  background:var(--white);color:var(--ink);font-size:13.5px;outline:none;
+  transition:border-color .2s,box-shadow .2s
+}
+.search-wrap input:focus{border-color:var(--a);box-shadow:0 0 0 4px rgba(59,91,219,.1)}
+.cat-filter{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 1px 6px}
+.cat-filter::-webkit-scrollbar{display:none}
+.cat-btn{
+  flex-shrink:0;padding:8px 15px;border-radius:100px;
+  border:1.5px solid var(--line);background:var(--white);
+  color:var(--muted);font-size:12.5px;font-weight:500;
+  transition:all .22s ease;white-space:nowrap
+}
+.cat-btn:hover{border-color:var(--ink);color:var(--ink)}
+.cat-btn.active{border-color:var(--a);background:var(--a);color:#fff}
+
+/* Layout toggle */
+.layout-btns{display:flex;gap:4px;flex-shrink:0}
+.layout-btn{
+  width:36px;height:36px;border-radius:8px;border:1.5px solid var(--line);
+  background:var(--white);color:var(--muted);display:grid;place-items:center;
+  transition:all .2s
+}
+.layout-btn:hover,.layout-btn.active{border-color:var(--a);background:#eef2ff;color:var(--a)}
+
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;font-size:12.5px;color:var(--muted)}
+.sample-badge{padding:4px 10px;border-radius:5px;background:#fef9c3;color:#854d0e;font-size:10.5px;font-weight:600}
+
+/* ══════════════════════════════════════════════
+   PRODUCT GRID — CARD TEMPLATES
+══════════════════════════════════════════════ */
+.product-grid{display:grid;gap:18px}
+.product-grid.grid-4{grid-template-columns:repeat(4,1fr)}
+.product-grid.grid-3{grid-template-columns:repeat(3,1fr)}
+.product-grid.list-view{grid-template-columns:1fr;gap:12px}
+
+/* --- TEMPLATE A: Classic Card (default) --- */
+.card-classic{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease),border-color var(--t)
+}
+.card-classic:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent}
+.card-classic .c-img{position:relative;overflow:hidden;background:#f0f1f5;aspect-ratio:1}
+.card-classic .c-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.card-classic:hover .c-img img{transform:scale(1.07)}
+.card-classic .c-tag{position:absolute;top:11px;left:11px;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);font-size:10px;font-weight:600;color:var(--ink-2)}
+.card-classic .c-body{padding:18px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card-classic .c-cat{font-size:10.5px;font-weight:600;color:var(--a);letter-spacing:.5px;text-transform:uppercase}
+.card-classic .c-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;line-height:1.3;min-height:39px}
+.card-classic .c-desc{font-size:12.5px;color:var(--muted);flex:1;line-height:1.6}
+.card-classic .c-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;margin-top:8px;border-top:1px solid var(--line)}
+.card-classic .c-price-from{font-size:10px;color:var(--muted);margin-bottom:2px}
+.card-classic .c-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px}
+
+/* --- TEMPLATE B: Minimal List Row --- */
+.card-list{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  display:flex;align-items:center;gap:18px;padding:16px 20px;
+  transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease),border-color var(--t)
+}
+.card-list:hover{box-shadow:var(--shadow);border-color:rgba(59,91,219,.25);transform:translateX(4px)}
+.card-list .l-img{width:80px;height:80px;flex-shrink:0;border-radius:12px;overflow:hidden;background:#f0f1f5}
+.card-list .l-img img{width:100%;height:100%;object-fit:cover}
+.card-list .l-cat{font-size:10.5px;font-weight:600;color:var(--a);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.card-list .l-name{font-family:'Syne',sans-serif;font-size:15.5px;font-weight:700;margin-bottom:4px}
+.card-list .l-desc{font-size:12.5px;color:var(--muted)}
+.card-list .l-info{flex:1}
+.card-list .l-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.card-list .l-stores{font-size:11px;color:var(--muted)}
+.card-list .l-price{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;white-space:nowrap}
+
+/* --- TEMPLATE C: Featured/Wide Card (for grid-3) --- */
+.card-featured{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;
+  transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease)
+}
+.card-featured:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.card-featured .f-img{position:relative;overflow:hidden;background:#f0f1f5;aspect-ratio:4/3}
+.card-featured .f-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.card-featured:hover .f-img img{transform:scale(1.06)}
+.card-featured .f-tag{position:absolute;top:12px;left:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);font-size:10px;font-weight:600;color:var(--ink-2)}
+.card-featured .f-stores-count{position:absolute;top:12px;right:12px;padding:5px 10px;border-radius:100px;background:var(--a);color:#fff;font-size:10px;font-weight:600}
+.card-featured .f-body{padding:20px}
+.card-featured .f-cat{font-size:10.5px;font-weight:600;color:var(--a);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.card-featured .f-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.card-featured .f-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.card-featured .f-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card-featured .f-price{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px}
+.card-featured .f-price-label{font-size:11px;color:var(--muted);margin-bottom:2px}
+
+/* ══════════════════════════════════════════════
+   COMPARE BUTTON shared
+══════════════════════════════════════════════ */
+.compare-btn{
+  padding:9px 16px;border-radius:8px;background:var(--ink);
+  color:#fff;font-size:12px;font-weight:600;border:0;white-space:nowrap;
+  transition:background .2s,transform .2s
+}
+.compare-btn:hover{background:var(--a);transform:translateY(-1px)}
+
+/* ══════════════════════════════════════════════
    EMPTY
-========================================================= */
-
-.empty{
-    padding:70px 20px;
-    text-align:center;
-    color:#818696;
+══════════════════════════════════════════════ */
+.empty-state{
+  grid-column:1/-1;padding:60px 20px;
+  border:1.5px dashed var(--line);border-radius:var(--r-lg);
+  text-align:center;background:var(--white)
 }
+.empty-state strong{display:block;font-family:'Syne',sans-serif;font-size:20px;margin-bottom:8px}
+.empty-state p{color:var(--muted);font-size:14px}
 
-.empty h2{
-    color:white;
-    margin-bottom:10px;
+/* ══════════════════════════════════════════════
+   PROMO BANNER
+══════════════════════════════════════════════ */
+.promo-banner{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  border-radius:var(--r-lg);color:#fff;
+  padding:36px 40px;margin:52px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;overflow:hidden
 }
+.promo-banner::before{
+  content:'';position:absolute;right:-40px;top:-40px;
+  width:240px;height:240px;border-radius:50%;
+  background:rgba(255,255,255,.07)
+}
+.promo-banner::after{
+  content:'';position:absolute;right:80px;bottom:-60px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.05)
+}
+.promo-label{font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px}
+.promo-title{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,30px);font-weight:800;margin-bottom:8px}
+.promo-sub{font-size:14px;color:rgba(255,255,255,.65);max-width:480px}
+.promo-btn{
+  flex-shrink:0;padding:13px 24px;border-radius:10px;
+  background:#fff;color:var(--a);font-size:13.5px;font-weight:700;border:0;
+  transition:transform .2s,box-shadow .2s;position:relative;z-index:1
+}
+.promo-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
+/* ══════════════════════════════════════════════
+   DIALOG
+══════════════════════════════════════════════ */
+.dialog-backdrop{
+  position:fixed;inset:0;z-index:200;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(10,12,18,.65);
+  backdrop-filter:blur(8px)
+}
+.dialog-backdrop.open{display:flex}
+.dialog{
+  width:min(700px,100%);border-radius:var(--r-xl);
+  background:var(--white);overflow:hidden;
+  box-shadow:0 32px 100px rgba(0,0,0,.3);
+  animation:dialogIn .4s var(--ease) both
+}
+@keyframes dialogIn{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:none}}
+.dialog-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 26px;background:var(--ink);color:#fff
+}
+.dialog-head h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+.close-btn{
+  width:34px;height:34px;border-radius:8px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  color:#fff;font-size:22px;display:grid;place-items:center;line-height:1;
+  transition:background .2s
+}
+.close-btn:hover{background:rgba(255,255,255,.2)}
+.dialog-body{padding:26px}
+.dialog-prod{display:flex;gap:18px;align-items:flex-start;margin-bottom:26px}
+.dialog-prod img{width:96px;height:96px;flex-shrink:0;border-radius:12px;object-fit:cover;background:#f0f1f5}
+.dialog-prod h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.dialog-prod p{font-size:13px;color:var(--muted)}
+.store-list{border-top:1px solid var(--line)}
+.store-row{
+  display:grid;grid-template-columns:1fr auto auto;align-items:center;
+  gap:16px;padding:14px 0;border-bottom:1px solid var(--line)
+}
+.store-name{font-size:14px;font-weight:600}
+.store-price{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;white-space:nowrap}
+.best-tag{display:inline-block;padding:2px 7px;border-radius:5px;background:#dcfce7;color:#15803d;font-size:9.5px;font-weight:700;margin-left:6px;vertical-align:middle}
+.store-link{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:9px 14px;border-radius:8px;background:var(--ink);
+  color:#fff;font-size:12px;font-weight:600;white-space:nowrap;
+  transition:background .2s
+}
+.store-link:hover{background:var(--a)}
+.store-link.unavailable{background:var(--line);color:var(--muted);pointer-events:none}
+.dialog-note{margin-top:20px;padding:14px 16px;border-radius:10px;background:#f3f4f6;color:#626875;font-size:11.5px;line-height:1.65}
 
-/* =========================================================
-   TOAST
-========================================================= */
-
+/* ══════════════════════════════════════════════
+   ADMIN VIEW
+══════════════════════════════════════════════ */
+.admin-view{padding:40px 0 80px}
+.admin-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:32px}
+.admin-title-block .admin-sup{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--a);text-transform:uppercase;margin-bottom:6px}
+.admin-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.8px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.admin-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.admin-card-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.admin-card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+.admin-body{padding:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:var(--r-sm);
+  background:var(--white);color:var(--ink);font-size:13.5px;outline:none;
+  transition:border-color .2s,box-shadow .2s
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--a);box-shadow:0 0 0 4px rgba(59,91,219,.1)}
+.field textarea{min-height:80px;resize:vertical;line-height:1.6}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field small{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+.store-entry{background:#f8f9fc;border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px;position:relative}
+.store-entry-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.store-entry-title{font-size:13px;font-weight:600}
+.remove-store{width:26px;height:26px;border-radius:6px;background:transparent;border:1px solid var(--line);color:var(--muted);font-size:16px;display:grid;place-items:center;transition:all .2s}
+.remove-store:hover{background:#fee2e2;border-color:#fca5a5;color:var(--red)}
+.add-store-btn{
+  width:100%;padding:10px;border-radius:9px;
+  border:1.5px dashed var(--line);background:transparent;
+  color:var(--a);font-size:13px;font-weight:600;
+  transition:border-color .2s,background .2s
+}
+.add-store-btn:hover{border-color:var(--a);background:#eef2ff}
+.admin-save-btn{
+  width:100%;padding:13px;border-radius:10px;border:0;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;font-size:14px;font-weight:700;
+  box-shadow:0 4px 16px rgba(59,91,219,.35);
+  transition:box-shadow .2s,transform .2s
+}
+.admin-save-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(59,91,219,.5)}
+.product-table-wrap{overflow-x:auto;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg)}
+.product-table{width:100%;border-collapse:collapse}
+.product-table th{text-align:left;padding:13px 18px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:#fafbff;white-space:nowrap}
+.product-table td{padding:14px 18px;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:middle}
+.product-table tr:last-child td{border-bottom:0}
+.product-table tr:hover td{background:#fafbff}
+.tbl-thumb{width:44px;height:44px;border-radius:9px;overflow:hidden;background:#f0f1f5;flex-shrink:0}
+.tbl-thumb img{width:100%;height:100%;object-fit:cover}
+.tbl-name{font-weight:600}
+.tbl-cat{display:inline-block;padding:3px 9px;border-radius:100px;background:#eef2ff;color:var(--a);font-size:11px;font-weight:600}
+.tbl-price{font-family:'Syne',sans-serif;font-weight:700}
+.tbl-actions{display:flex;gap:6px}
+.tbl-edit{padding:6px 12px;border-radius:7px;background:var(--ink);color:#fff;font-size:11.5px;font-weight:600;border:0;transition:background .2s}
+.tbl-edit:hover{background:var(--a)}
+.tbl-delete{padding:6px 12px;border-radius:7px;background:transparent;border:1px solid var(--line);color:var(--muted);font-size:11.5px;font-weight:600;transition:all .2s}
+.tbl-delete:hover{background:#fee2e2;border-color:#fca5a5;color:var(--red)}
 .toast{
-    position:fixed;
-    right:25px;
-    bottom:25px;
-    z-index:5000;
-    padding:14px 18px;
-    border-radius:10px;
-    background:#202431;
-    border:1px solid #3b4155;
-    color:white;
-    transform:translateY(120px);
-    opacity:0;
-    transition:.3s;
+  position:fixed;bottom:28px;right:28px;z-index:999;
+  padding:13px 20px;border-radius:10px;
+  background:var(--ink);color:#fff;
+  font-size:13.5px;font-weight:500;
+  box-shadow:0 8px 28px rgba(0,0,0,.22);
+  display:flex;align-items:center;gap:10px;
+  opacity:0;transform:translateY(16px);
+  transition:all .4s var(--ease);pointer-events:none
 }
+.toast.show{opacity:1;transform:none}
+.toast-icon{font-size:16px}
 
-.toast.show{
-    transform:translateY(0);
-    opacity:1;
-}
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.site-footer{background:var(--ink);color:#fff}
+.footer-main{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;padding:52px 0 40px}
+.footer-about p{margin-top:14px;font-size:13px;color:rgba(255,255,255,.38);line-height:1.7;max-width:380px}
+.footer-nav-title{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px}
+.footer-links a{padding:7px 13px;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.55);transition:all .2s}
+.footer-links a:hover{border-color:var(--a);color:#fff;background:rgba(59,91,219,.18)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:16px 0;font-size:11px;color:rgba(255,255,255,.22)}
 
+/* ══════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes floatPill{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
-/* =========================================================
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+
+.product-grid .card-classic:nth-child(1),.product-grid .card-featured:nth-child(1){animation:cardIn .45s .04s var(--ease) both}
+.product-grid .card-classic:nth-child(2),.product-grid .card-featured:nth-child(2){animation:cardIn .45s .08s var(--ease) both}
+.product-grid .card-classic:nth-child(3),.product-grid .card-featured:nth-child(3){animation:cardIn .45s .12s var(--ease) both}
+.product-grid .card-classic:nth-child(4),.product-grid .card-featured:nth-child(4){animation:cardIn .45s .16s var(--ease) both}
+.product-grid .card-classic:nth-child(5),.product-grid .card-featured:nth-child(5){animation:cardIn .45s .20s var(--ease) both}
+.product-grid .card-classic:nth-child(6),.product-grid .card-featured:nth-child(6){animation:cardIn .45s .24s var(--ease) both}
+.product-grid .card-classic:nth-child(7),.product-grid .card-featured:nth-child(7){animation:cardIn .45s .28s var(--ease) both}
+.product-grid .card-classic:nth-child(8),.product-grid .card-featured:nth-child(8){animation:cardIn .45s .32s var(--ease) both}
+.product-grid .card-classic:nth-child(n+9),.product-grid .card-featured:nth-child(n+9){animation:cardIn .45s .36s var(--ease) both}
+
+/* ══════════════════════════════════════════════
    RESPONSIVE
-========================================================= */
-
-@media(max-width:1100px){
-
-    .product-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .category-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .hero{
-        grid-template-columns:1fr;
-        padding:50px 0;
-    }
-
-    .admin-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
+══════════════════════════════════════════════ */
+@media(max-width:1080px){
+  .product-grid.grid-4{grid-template-columns:repeat(3,1fr)}
+  .shop-controls{grid-template-columns:200px 1fr auto}
+  .admin-grid{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
 }
-
-
-@media(max-width:800px){
-
-    .header-inner{
-        padding:0 15px;
-    }
-
-    .logo{
-        min-width:auto;
-    }
-
-    .logo-text{
-        display:none;
-    }
-
-    .header-search{
-        max-width:none;
-    }
-
-    /*
-       IMPORTANT:
-       Only hide the login button on mobile.
-       Admin button stays visible for admins.
-    */
-
-    #loginButton{
-        display:none;
-    }
-
-    main{
-        padding:0 15px 50px;
-    }
-
-    .product-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .category-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .gender-grid,
-    .product-detail-grid,
-    .cart-layout{
-        grid-template-columns:1fr;
-    }
-
-    .admin-grid{
-        grid-template-columns:1fr;
-    }
-
-    .hero h1{
-        font-size:65px;
-    }
-
-    .shop-controls{
-        align-items:flex-start;
-        gap:15px;
-        flex-direction:column;
-    }
-
+@media(max-width:760px){
+  .nav-links,.header-actions .header-btn-ghost{display:none}
+  .how-grid{grid-template-columns:1fr}
+  .product-grid.grid-4,.product-grid.grid-3{grid-template-columns:repeat(2,1fr)}
+  .section-header{flex-direction:column;align-items:flex-start}
+  .footer-main{grid-template-columns:1fr;gap:32px}
+  .shop-controls{grid-template-columns:1fr auto;grid-template-rows:auto auto}
+  .search-wrap{grid-column:1;grid-row:1}
+  .layout-btns{grid-column:2;grid-row:1}
+  .cat-filter{grid-column:1/-1;grid-row:2}
+  .promo-banner{flex-direction:column;text-align:center}
 }
-
-
-@media(max-width:520px){
-
-    .product-grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .product-image{
-        height:200px;
-    }
-
-    .category-grid{
-        grid-template-columns:1fr;
-    }
-
-    .header-search{
-        display:none;
-    }
-
-    .hero h1{
-        font-size:55px;
-    }
-
-    .detail-image{
-        height:400px;
-    }
-
-    .admin-container{
-        padding:35px 5px 60px;
-    }
-
-    .admin-header h1{
-        font-size:32px;
-    }
-
-    .admin-card{
-        padding:22px;
-    }
-
+@media(max-width:480px){
+  .product-grid.grid-4,.product-grid.grid-3{grid-template-columns:1fr}
 }
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+<style id="gg-single-myntra-overrides">
+:root{--ink:#282c3f;--ink-2:#3e4152;--paper:#fff;--white:#fff;--muted:#696e79;--line:#e9e9ef;--a:#ff3f6c;--a2:#ff527b;--green:#03a685;--amber:#ff905a}
+body{background:#fff;color:#282c3f}
+.gg-myntra-header{background:#fff;border-bottom:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.05);backdrop-filter:none}
+.gg-header-inner{min-height:80px;padding:0;gap:22px}
+.gg-brand{color:#282c3f;flex-shrink:0}.gg-brand-mark{background:#ff3f6c;color:#fff;border-radius:4px}.gg-brand-name{color:#282c3f}.gg-brand-name em{color:#ff3f6c}
+.gg-nav-links{align-self:stretch;align-items:stretch;gap:0;flex-wrap:nowrap;overflow:visible}.gg-nav-links a{height:80px;display:flex;align-items:center;color:#282c3f;border-radius:0;padding:0 11px;font-size:11.5px;font-weight:800;letter-spacing:.35px;position:relative}.gg-nav-links a:hover{color:#ff3f6c;background:none}.gg-nav-links a:after{content:'';position:absolute;left:8px;right:8px;bottom:0;height:3px;background:#ff3f6c;transform:scaleX(0);transition:.2s}.gg-nav-links a:hover:after{transform:scaleX(1)}
+.gg-top-search{height:42px;min-width:190px;flex:1;max-width:390px;background:#f5f5f6;border-radius:4px;display:flex;align-items:center;gap:9px;padding:0 13px;color:#696e79}.gg-top-search input{border:0;outline:0;background:transparent;width:100%;font-size:12.5px;color:#282c3f;cursor:text}.gg-top-search:focus-within{box-shadow:0 0 0 1px #ddd}
+.gg-actions{gap:10px;align-items:center}.gg-icon-btn{border:0;background:transparent;color:#282c3f;min-width:42px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 3px}.gg-icon-btn span{font-size:19px;line-height:1}.gg-icon-btn small{font-size:9.5px;font-weight:700}.gg-icon-btn:hover{color:#ff3f6c}.gg-admin-btn{padding:8px 12px;font-size:11px}
+.hero{background:linear-gradient(100deg,#282c3f,#444858 58%,#8b8d96);padding:76px 0 80px}.hero-bg,.hero-grid{opacity:.25}.hero h1{font-size:clamp(44px,6vw,76px);letter-spacing:-2px}.hero-btns .btn-primary{background:#ff3f6c;box-shadow:0 4px 16px rgba(255,63,108,.3)}.hero-btns .btn-primary:hover{box-shadow:0 8px 25px rgba(255,63,108,.4)}.hero-badge{border-color:rgba(255,63,108,.5);background:rgba(255,63,108,.12);color:#ffc0ce}.hero-badge-dot{background:#ff3f6c}
+.how-section{padding-top:46px}.how-item{padding:30px}.how-icon{background:#fff0f3}.how-item:hover{background:#fff8fa}
+.cat-card:hover,.cat-card.active{border-color:#ff3f6c;background:#fff0f3;box-shadow:0 8px 24px rgba(255,63,108,.12)}.cat-card.active .cat-emoji{transform:scale(1.12)}
+.shop-section{padding-top:45px}.section-sup{color:#ff3f6c}.cat-btn.active{border-color:#ff3f6c;background:#ff3f6c}.cat-btn:hover{border-color:#ff3f6c;color:#ff3f6c}
+.compare-btn{background:#282c3f}.compare-btn:hover{background:#ff3f6c}.card-classic:hover{box-shadow:0 6px 24px rgba(0,0,0,.12)}.card-classic .c-cat,.card-featured .f-cat,.card-list .l-cat{color:#ff3f6c}.promo-banner{background:linear-gradient(135deg,#ff3f6c,#ff527b)}
+.btn-primary,.admin-save-btn{background:#ff3f6c;box-shadow:0 4px 16px rgba(255,63,108,.28)}.btn-primary:hover,.admin-save-btn:hover{background:#ff527b}.btn-dark:hover{background:#ff3f6c}
+@media(max-width:1080px){.gg-nav-links a{padding:0 7px;font-size:10px}.gg-header-inner{gap:10px}.gg-top-search{max-width:270px}}
+@media(max-width:760px){.gg-header-inner{min-height:auto;padding:10px 0;flex-wrap:wrap}.gg-brand{order:1}.gg-actions{order:2;margin-left:auto}.gg-top-search{order:3;flex-basis:100%;max-width:none}.gg-nav-links{order:4;flex-basis:100%;overflow-x:auto;height:42px}.gg-nav-links a{height:42px;white-space:nowrap}.gg-actions .gg-admin-btn{display:none!important}.hero{padding:55px 0}.hero-visual{display:none}}
+/* Myntra-style category mega menus */
+.gg-menu-wrap{position:relative;height:80px;display:flex;align-items:stretch}.gg-menu-wrap>.gg-menu-trigger{height:80px!important}.gg-mega-menu{position:absolute;top:80px;left:-20px;width:min(980px,calc(100vw - 32px));background:#fff;border:1px solid #eee;box-shadow:0 12px 35px rgba(40,44,63,.16);display:none;grid-template-columns:repeat(5,1fr);gap:22px;padding:26px 30px;z-index:1000;text-align:left}.gg-menu-wrap:hover .gg-mega-menu,.gg-menu-wrap.open .gg-mega-menu{display:grid}.gg-mega-col{display:flex;flex-direction:column;gap:9px}.gg-mega-col h4{margin:0 0 5px;color:#ff3f6c;font-size:12px;font-weight:800}.gg-mega-col a{height:auto!important;padding:0!important;color:#535766!important;font-size:12px!important;font-weight:500!important;letter-spacing:0!important}.gg-mega-col a:hover{color:#ff3f6c!important}.gg-mega-col a:after{display:none!important}
+#page-admin{background:#f5f5f6;min-height:100vh}#page-admin .admin-view{padding:30px 0 70px}#page-admin .admin-header{background:#fff;border:1px solid #eee;border-radius:4px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}#page-admin .admin-sup{color:#ff3f6c!important;letter-spacing:1.2px}#page-admin .admin-title{font-family:Arial,sans-serif;font-size:25px;letter-spacing:0}#page-admin .admin-card{border-radius:4px;border-color:#e5e5e8;box-shadow:0 2px 8px rgba(0,0,0,.035)}#page-admin .admin-card-head{background:#fff;padding:16px 20px}#page-admin .admin-card-title{font-family:Arial,sans-serif;font-size:14px}#page-admin .field input:focus,#page-admin .field select:focus,#page-admin .field textarea:focus{border-color:#ff3f6c;box-shadow:0 0 0 3px rgba(255,63,108,.10)}#page-admin .admin-save-btn{background:#ff3f6c!important;box-shadow:none!important}#page-admin .admin-save-btn:hover{background:#e7335f!important}#page-admin .tbl-cat{background:#fff0f3;color:#ff3f6c}
+@media(max-width:1080px){.gg-mega-menu{left:-10px;width:min(900px,calc(100vw - 20px))}.gg-mega-col a{font-size:11px!important}}
+@media(max-width:760px){.gg-menu-wrap{height:42px}.gg-menu-wrap>.gg-menu-trigger{height:42px!important}.gg-mega-menu{position:fixed;top:104px;left:10px;width:calc(100vw - 20px);grid-template-columns:repeat(2,1fr);max-height:70vh;overflow:auto}.gg-menu-wrap:hover .gg-mega-menu{display:none}.gg-menu-wrap.open .gg-mega-menu{display:grid}}
 
 </style>
-
 </head>
-
-
 <body>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
-<header>
-
-<div class="header-inner">
-
-
-    <a
-        href="#home"
-        class="logo"
-        onclick="navigate('home')"
-    >
-
-        <div class="logo-box">
-            G&G
+<!-- ── SINGLE MYNTRA-STYLE HEADER ── -->
+<header class="site-header gg-myntra-header">
+  <div class="container">
+    <div class="header-inner gg-header-inner">
+      <a class="brand gg-brand" href="#" onclick="showPage('shop');return false" aria-label="Grid and Gear home">
+        <span class="brand-mark gg-brand-mark">G&G</span>
+        <span class="brand-name gg-brand-name">GRID <em>&amp;</em> GEAR</span>
+      </a>
+      <nav class="nav-links gg-nav-links" aria-label="Main navigation">
+        <div class="gg-menu-wrap">
+          <a href="#" class="gg-menu-trigger" onclick="toggleMegaMenu('menMenu');return false">MEN</a>
+          <div class="gg-mega-menu" id="menMenu" aria-label="Men categories">
+            <div class="gg-mega-col"><h4>Topwear</h4><a href="#" onclick="menCategory('Shirts');return false">Casual Shirts</a><a href="#" onclick="menCategory('T-Shirts');return false">T-Shirts</a><a href="#" onclick="menCategory('Polos');return false">Polos</a><a href="#" onclick="menCategory('Jackets');return false">Jackets</a><a href="#" onclick="menCategory('Sweatshirts');return false">Sweatshirts</a></div>
+            <div class="gg-mega-col"><h4>Bottomwear</h4><a href="#" onclick="menCategory('Jeans');return false">Jeans</a><a href="#" onclick="menCategory('Trousers');return false">Trousers</a><a href="#" onclick="menCategory('Shorts');return false">Shorts</a><a href="#" onclick="menCategory('Track Pants');return false">Track Pants</a></div>
+            <div class="gg-mega-col"><h4>Footwear</h4><a href="#" onclick="menCategory('Casual Shoes');return false">Casual Shoes</a><a href="#" onclick="menCategory('Sports Shoes');return false">Sports Shoes</a><a href="#" onclick="menCategory('Sneakers');return false">Sneakers</a><a href="#" onclick="menCategory('Sandals');return false">Sandals &amp; Floaters</a></div>
+            <div class="gg-mega-col"><h4>Accessories</h4><a href="#" onclick="menCategory('Watches');return false">Watches</a><a href="#" onclick="menCategory('Bags');return false">Bags &amp; Backpacks</a><a href="#" onclick="menCategory('Caps');return false">Caps</a><a href="#" onclick="menCategory('Belts');return false">Belts</a><a href="#" onclick="menCategory('Sunglasses');return false">Sunglasses</a></div>
+            <div class="gg-mega-col"><h4>Discover</h4><a href="#" onclick="menCategory('Fashion');return false">All Men’s Fashion</a><a href="#" onclick="menCategory('Motorsport');return false">Motorsport</a><a href="#" onclick="menCategory('Fitness');return false">Sports &amp; Fitness</a></div>
+          </div>
         </div>
-
-        <div class="logo-text">
-            GRID <span>&amp;</span> GEAR
+        <div class="gg-menu-wrap">
+          <a href="#" class="gg-menu-trigger" onclick="toggleMegaMenu('womenMenu');return false">WOMEN</a>
+          <div class="gg-mega-menu" id="womenMenu" aria-label="Women categories">
+            <div class="gg-mega-col"><h4>Indian &amp; Fusion</h4><a href="#" onclick="womenCategory('Kurtas');return false">Kurtas &amp; Suits</a><a href="#" onclick="womenCategory('Sarees');return false">Sarees</a><a href="#" onclick="womenCategory('Dresses');return false">Dresses</a></div>
+            <div class="gg-mega-col"><h4>Western Wear</h4><a href="#" onclick="womenCategory('Tops');return false">Tops</a><a href="#" onclick="womenCategory('Jeans');return false">Jeans</a><a href="#" onclick="womenCategory('T-Shirts');return false">T-Shirts</a><a href="#" onclick="womenCategory('Jackets');return false">Jackets</a></div>
+            <div class="gg-mega-col"><h4>Footwear</h4><a href="#" onclick="womenCategory('Heels');return false">Heels</a><a href="#" onclick="womenCategory('Flats');return false">Flats</a><a href="#" onclick="womenCategory('Sneakers');return false">Sneakers</a></div>
+            <div class="gg-mega-col"><h4>Accessories</h4><a href="#" onclick="womenCategory('Watches');return false">Watches</a><a href="#" onclick="womenCategory('Bags');return false">Handbags &amp; Bags</a><a href="#" onclick="womenCategory('Sunglasses');return false">Sunglasses</a></div>
+            <div class="gg-mega-col"><h4>Beauty</h4><a href="#" onclick="womenCategory('Beauty');return false">Makeup</a><a href="#" onclick="womenCategory('Beauty');return false">Skincare</a><a href="#" onclick="womenCategory('Beauty');return false">Haircare</a></div>
+          </div>
         </div>
-
-    </a>
-
-
-    <div class="header-search">
-
-        <span class="search-icon">
-            ⌕
-        </span>
-
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Search products, brands and categories..."
-            onkeydown="handleSearch(event)"
-        >
-
+        <div class="gg-menu-wrap">
+          <a href="#" class="gg-menu-trigger" onclick="toggleMegaMenu('beautyMenu');return false">BEAUTY</a>
+          <div class="gg-mega-menu" id="beautyMenu" aria-label="Beauty categories">
+            <div class="gg-mega-col"><h4>Makeup</h4><a href="#" onclick="beautyCategory();return false">Face Makeup</a><a href="#" onclick="beautyCategory();return false">Lipstick</a><a href="#" onclick="beautyCategory();return false">Eye Makeup</a><a href="#" onclick="beautyCategory();return false">Makeup Kits</a></div>
+            <div class="gg-mega-col"><h4>Skincare</h4><a href="#" onclick="beautyCategory();return false">Face Packs</a><a href="#" onclick="beautyCategory();return false">Face Wash</a><a href="#" onclick="beautyCategory();return false">Moisturizers</a><a href="#" onclick="beautyCategory();return false">Sunscreen</a></div>
+            <div class="gg-mega-col"><h4>Bath &amp; Body</h4><a href="#" onclick="beautyCategory();return false">Body Lotions</a><a href="#" onclick="beautyCategory();return false">Body Wash</a><a href="#" onclick="beautyCategory();return false">Bath &amp; Shower</a><a href="#" onclick="beautyCategory();return false">Hand &amp; Foot Care</a></div>
+            <div class="gg-mega-col"><h4>Hair Care</h4><a href="#" onclick="beautyCategory();return false">Shampoo</a><a href="#" onclick="beautyCategory();return false">Conditioner</a><a href="#" onclick="beautyCategory();return false">Hair Oils</a><a href="#" onclick="beautyCategory();return false">Hair Styling</a></div>
+            <div class="gg-mega-col"><h4>Discover</h4><a href="#" onclick="beautyCategory();return false">All Beauty</a><a href="#" onclick="beautyCategory();return false">Beauty Sets</a><a href="#" onclick="beautyCategory();return false">Premium Beauty</a></div>
+          </div>
+        </div>
+        <div class="gg-menu-wrap">
+          <a href="#" class="gg-menu-trigger" onclick="toggleMegaMenu('accessoriesMenu');return false">ACCESSORIES</a>
+          <div class="gg-mega-menu" id="accessoriesMenu" aria-label="Accessories categories">
+            <div class="gg-mega-col"><h4>Men Accessories</h4><a href="#" onclick="accessoryCategory();return false">Watches</a><a href="#" onclick="accessoryCategory();return false">Wallets</a><a href="#" onclick="accessoryCategory();return false">Belts</a><a href="#" onclick="accessoryCategory();return false">Caps &amp; Hats</a><a href="#" onclick="accessoryCategory();return false">Sunglasses</a></div>
+            <div class="gg-mega-col"><h4>Men Bags</h4><a href="#" onclick="accessoryCategory();return false">Backpacks</a><a href="#" onclick="accessoryCategory();return false">Laptop Bags</a><a href="#" onclick="accessoryCategory();return false">Travel Bags</a><a href="#" onclick="accessoryCategory();return false">Sports Bags</a></div>
+            <div class="gg-mega-col"><h4>Women Accessories</h4><a href="#" onclick="accessoryCategory();return false">Handbags</a><a href="#" onclick="accessoryCategory();return false">Wallets &amp; Pouches</a><a href="#" onclick="accessoryCategory();return false">Sunglasses</a><a href="#" onclick="accessoryCategory();return false">Watches</a><a href="#" onclick="accessoryCategory();return false">Jewellery</a></div>
+            <div class="gg-mega-col"><h4>Women Bags</h4><a href="#" onclick="accessoryCategory();return false">Tote Bags</a><a href="#" onclick="accessoryCategory();return false">Sling Bags</a><a href="#" onclick="accessoryCategory();return false">Clutches</a><a href="#" onclick="accessoryCategory();return false">Backpacks</a></div>
+            <div class="gg-mega-col"><h4>Discover</h4><a href="#" onclick="accessoryCategory();return false">All Accessories</a><a href="#" onclick="accessoryCategory();return false">Travel Accessories</a><a href="#" onclick="accessoryCategory();return false">Gifting</a></div>
+          </div>
+        </div>
+        <a href="#" onclick="setCategory('Tech');menuToShop();return false">TECH</a>
+        <a href="#" onclick="setCategory('Fitness');menuToShop();return false">FITNESS</a>
+        <a href="#" onclick="setCategory('Motorsport');menuToShop();return false">MOTORSPORT</a>
+        <a href="#" onclick="setCategory('Electronics');menuToShop();return false">ELECTRONICS</a>
+        <a href="#" onclick="setCategory('Watches');menuToShop();return false">WATCHES</a>
+      </nav>
+      <label class="gg-top-search">
+        <span>⌕</span>
+        <input id="ggHeaderSearch" type="search" placeholder="Search for products, brands and more" aria-label="Search products">
+      </label>
+      <div class="header-actions gg-actions">
+        <button class="gg-icon-btn" onclick="showPage('user-auth')"><span>♙</span><small>Profile</small></button>
+        <button class="gg-icon-btn" onclick="showPage('shop');document.getElementById('shop-anchor')?.scrollIntoView({behavior:'smooth'})"><span>♡</span><small>Wishlist</small></button>
+        <button class="gg-icon-btn gg-bag-btn" onclick="showPage('shop')"><span>▢</span><small>Bag</small></button>
+        <button class="header-btn header-btn-primary gg-admin-btn" id="adminNavBtn" style="display:none" onclick="showPage('admin')">Admin</button>
+      </div>
     </div>
-
-
-    <div class="header-actions">
-
-
-        <button
-            class="header-btn"
-            onclick="navigate('wishlist')"
-        >
-            ♡
-        </button>
-
-
-        <button
-            class="header-btn cart-btn"
-            onclick="navigate('cart')"
-        >
-
-            🛒
-
-            <span
-                id="cartCount"
-                class="cart-count"
-            >
-                0
-            </span>
-
-        </button>
-
-
-        <button
-            id="loginButton"
-            class="header-btn"
-            onclick="openAuthModal()"
-        >
-            Login / Sign up
-        </button>
-
-
-        <!-- ADMIN BUTTON -->
-
-        <button
-            id="adminButton"
-            class="header-btn"
-            style="display:none;"
-            onclick="navigate('admin')"
-        >
-            Admin
-        </button>
-
-
-    </div>
-
-</div>
-
+  </div>
 </header>
 
+<!-- ══════════════════════════════════════════════
+     SHOP PAGE
+══════════════════════════════════════════════ -->
+<div id="page-shop" class="page-view active">
 
-<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge"><span class="hero-badge-dot"></span>Your everyday discovery store</div>
+          <h1>Find your style.<br><span>Choose your gear.</span></h1>
+          <p class="hero-sub">From fashion and beauty to tech, fitness and motorsport — discover products and compare stores without the tab-switching.</p>
+          <div class="hero-btns">
+            <a class="btn btn-primary" href="#shop-anchor">Explore products →</a>
+            <a class="btn btn-ghost" href="#how">How it works</a>
+          </div>
+          <div class="hero-stats">
+            <div><div class="stat-num">10+</div><div class="stat-label">Categories</div></div>
+            <div><div class="stat-num">3</div><div class="stat-label">Stores compared</div></div>
+            <div><div class="stat-num">100%</div><div class="stat-label">Independent</div></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="hero-card-bg"></div>
+            <div class="hero-card-main">
+              <div class="hero-card-label">Top picks today</div>
+              <div class="hero-card-products">
+                <div class="hero-mini-product">
+                  <div class="hero-mini-swatch" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"></div>
+                  <span class="hero-mini-name">Racing Graphic Tee</span>
+                  <span class="hero-mini-price">₹529</span>
+                </div>
+                <div class="hero-mini-product">
+                  <div class="hero-mini-swatch" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></div>
+                  <span class="hero-mini-name">Motorsport Cap</span>
+                  <span class="hero-mini-price">₹499</span>
+                </div>
+                <div class="hero-mini-product">
+                  <div class="hero-mini-swatch" style="background:linear-gradient(135deg,#10b981,#3b82f6)"></div>
+                  <span class="hero-mini-name">Wireless Earbuds</span>
+                  <span class="hero-mini-price">₹999</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-pill">🔥 New arrivals daily</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- HOW IT WORKS -->
+  <div class="container">
+    <section class="how-section reveal" id="how">
+      <div class="how-grid">
+        <div class="how-item">
+          <div class="how-num">01</div>
+          <div class="how-icon">🔍</div>
+          <div class="how-title">Discover products</div>
+          <p class="how-desc">Browse across fashion, tech, fitness, beauty, and more — all in one curated place.</p>
+        </div>
+        <div class="how-item">
+          <div class="how-num">02</div>
+          <div class="how-icon">⇄</div>
+          <div class="how-title">Compare stores</div>
+          <p class="how-desc">See prices listed side by side across multiple retailers without the tab-switching.</p>
+        </div>
+        <div class="how-item">
+          <div class="how-num">03</div>
+          <div class="how-icon">↗</div>
+          <div class="how-title">Shop your way</div>
+          <p class="how-desc">Click through to your preferred retailer and complete your purchase directly there.</p>
+        </div>
+      </div>
+    </section>
 
-<!-- =========================================================
-     HOME
-========================================================= -->
+    <!-- CATEGORY SHOWCASE -->
+    <section class="cat-showcase reveal">
+      <div class="cat-scroll" id="catShowcase">
+        <div class="cat-card active" data-cat="All" onclick="setCategory('All')"><span class="cat-emoji">🛍️</span>All</div>
+        <div class="cat-card" data-cat="Fashion" onclick="setCategory('Fashion')"><span class="cat-emoji">👗</span>Fashion</div>
+        <div class="cat-card" data-cat="Beauty" onclick="setCategory('Beauty')"><span class="cat-emoji">💄</span>Beauty</div>
+        <div class="cat-card" data-cat="Tech" onclick="setCategory('Tech')"><span class="cat-emoji">📱</span>Tech</div>
+        <div class="cat-card" data-cat="Fitness" onclick="setCategory('Fitness')"><span class="cat-emoji">🏋️</span>Fitness</div>
+        <div class="cat-card" data-cat="Motorsport" onclick="setCategory('Motorsport')"><span class="cat-emoji">🏎️</span>Motorsport</div>
+        <div class="cat-card" data-cat="Electronics" onclick="setCategory('Electronics')"><span class="cat-emoji">🎮</span>Electronics</div>
+        <div class="cat-card" data-cat="Cosmetics" onclick="setCategory('Cosmetics')"><span class="cat-emoji">✨</span>Cosmetics</div>
+        <div class="cat-card" data-cat="Watches" onclick="setCategory('Watches')"><span class="cat-emoji">⌚</span>Watches</div>
+        <div class="cat-card" data-cat="Accessories" onclick="setCategory('Accessories')"><span class="cat-emoji">👜</span>Accessories</div>
+      </div>
+    </section>
 
-<section
-    id="homePage"
-    class="page active"
->
-
-
-    <div class="hero">
-
-
+    <!-- SHOP -->
+    <section class="shop-section" id="shop-anchor">
+      <div class="section-header reveal">
         <div>
+          <div class="section-sup">The collection</div>
+          <h2 class="section-title">Explore the gear</h2>
+        </div>
+        <p class="section-sub">Browse everything, search for something specific, or narrow by category.</p>
+      </div>
 
+      <div class="shop-controls reveal">
+        <label class="search-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="searchInput" type="search" placeholder="Search products…" aria-label="Search products">
+        </label>
+        <div class="cat-filter" id="catFilter">
+          <button class="cat-btn active" type="button" data-category="All">All</button>
+          <button class="cat-btn" type="button" data-category="Fashion">Fashion</button>
+          <button class="cat-btn" type="button" data-category="Beauty">Beauty</button>
+          <button class="cat-btn" type="button" data-category="Tech">Tech</button>
+          <button class="cat-btn" type="button" data-category="Fitness">Fitness</button>
+          <button class="cat-btn" type="button" data-category="Motorsport">Motorsport</button>
+          <button class="cat-btn" type="button" data-category="Electronics">Electronics</button>
+          <button class="cat-btn" type="button" data-category="Cosmetics">Cosmetics</button>
+          <button class="cat-btn" type="button" data-category="Watches">Watches</button>
+          <button class="cat-btn" type="button" data-category="Accessories">Accessories</button>
+        </div>
+        <div class="layout-btns">
+          <button class="layout-btn active" id="layoutGrid" title="Grid view" onclick="setLayout('grid')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="layout-btn" id="layoutList" title="List view" onclick="setLayout('list')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
 
-            <div class="badge">
+      <div class="results-bar">
+        <span id="resultsCount" aria-live="polite">Loading…</span>
+        <span class="sample-badge">Live catalog</span>
+      </div>
 
-                <span class="badge-dot"></span>
+      <div class="product-grid grid-4" id="productGrid"></div>
 
-                Your everyday discovery store
+      <!-- PROMO BANNER -->
+      <div class="promo-banner reveal">
+        <div>
+          <div class="promo-label">For the deal-seekers</div>
+          <div class="promo-title">Always get the best price</div>
+          <p class="promo-sub">Compare across Amazon, Myntra, Flipkart and more — all in one tap. No sign-up required.</p>
+        </div>
+        <button class="promo-btn" onclick="document.getElementById('shop-anchor').scrollIntoView({behavior:'smooth'})">Start comparing →</button>
+      </div>
+    </section>
+  </div>
+</div><!-- end shop page -->
 
-            </div>
+<!-- ══════════════════════════════════════════════
+     USER LOGIN / SIGN UP
+══════════════════════════════════════════════ -->
+<div id="page-user-auth" class="page-view">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);padding:24px">
+    <div style="width:min(440px,100%);animation:fadeUp .6s var(--ease) both">
+      <div style="text-align:center;margin-bottom:28px">
+        <div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--a),var(--a2));display:inline-grid;place-items:center;font-size:28px;box-shadow:0 8px 28px rgba(59,91,219,.4);margin-bottom:18px">👤</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px" id="authTitle">User login</div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.4)" id="authSubtitle">Log in to your Grid &amp; Gear account</div>
+      </div>
 
-
-            <h1>
-
-                Find<br>
-                your<br>
-
-                <span>style.</span><br>
-
-                Choose<br>
-
-                <span>your gear.</span>
-
-            </h1>
-
-
-            <p class="hero-description">
-
-                Discover fashion, technology, fitness gear,
-                motorsport products, watches and everyday
-                essentials — all in one place.
-
-            </p>
-
-
-            <div class="hero-buttons">
-
-
-                <button
-                    class="primary-btn"
-                    onclick="navigate('fashion')"
-                >
-                    Explore Fashion
-                </button>
-
-
-                <button
-                    class="secondary-btn"
-                    onclick="scrollToCategories()"
-                >
-                    Explore Categories
-                </button>
-
-
-            </div>
-
-
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:32px">
+        <div style="display:flex;gap:8px;margin-bottom:20px">
+          <button id="authLoginTab" type="button" onclick="setAuthMode('login')" style="flex:1;padding:10px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.12);color:#fff;font-weight:700">Login</button>
+          <button id="authSignupTab" type="button" onclick="setAuthMode('signup')" style="flex:1;padding:10px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.6);font-weight:700">Sign up</button>
         </div>
 
-
-        <div class="hero-card">
-
-
-            <h3>
-                TOP PICKS TODAY
-            </h3>
-
-
-            <div class="pick">
-
-                <div class="pick-icon"></div>
-
-                <div class="pick-name">
-                    Racing Graphic Tee
-                </div>
-
-                <div class="pick-price">
-                    ₹529
-                </div>
-
-            </div>
-
-
-            <div class="pick">
-
-                <div class="pick-icon"></div>
-
-                <div class="pick-name">
-                    Motorsport Cap
-                </div>
-
-                <div class="pick-price">
-                    ₹499
-                </div>
-
-            </div>
-
-
-            <div class="pick">
-
-                <div class="pick-icon"></div>
-
-                <div class="pick-name">
-                    Wireless Earbuds
-                </div>
-
-                <div class="pick-price">
-                    ₹999
-                </div>
-
-            </div>
-
-
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:8px">Email</label>
+          <input id="userEmailInput" type="email" placeholder="you@example.com" autocomplete="email" style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none">
         </div>
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:8px">Password</label>
+          <input id="userPasswordInput" type="password" placeholder="At least 6 characters" autocomplete="current-password" onkeydown="if(event.key==='Enter')attemptUserAuth()" style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div id="userAuthError" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;background:rgba(240,68,56,.15);border:1px solid rgba(240,68,56,.3);color:#fca5a5;font-size:12.5px;font-weight:500"></div>
+        <button id="userAuthBtn" onclick="attemptUserAuth()" style="width:100%;padding:13px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 16px rgba(59,91,219,.4);cursor:pointer">Login →</button>
 
+        <div style="margin-top:20px;text-align:center">
+          <button onclick="showPage('shop')" style="background:none;border:none;color:rgba(255,255,255,.35);font-size:12.5px;cursor:pointer">← Back to store</button>
+        </div>
+      </div>
 
+      <div style="text-align:center;margin-top:18px;font-size:11.5px;color:rgba(255,255,255,.22)">
+        Your account is separate from the private administrator account.
+      </div>
     </div>
-
-
-    <div id="categoriesSection">
-
-
-        <h2 class="section-title">
-            Explore Categories
-        </h2>
-
-
-        <div class="category-grid">
-
-
-            <div
-                class="category-card"
-                onclick="navigate('fashion')"
-            >
-
-                <div class="category-icon">
-                    👕
-                </div>
-
-                <h3>
-                    Fashion
-                </h3>
-
-                <p>
-                    Men, Women, Topwear, Bottomwear & more
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('beauty')"
-            >
-
-                <div class="category-icon">
-                    💄
-                </div>
-
-                <h3>
-                    Beauty
-                </h3>
-
-                <p>
-                    Beauty and personal care products
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('tech')"
-            >
-
-                <div class="category-icon">
-                    💻
-                </div>
-
-                <h3>
-                    Tech
-                </h3>
-
-                <p>
-                    Smart technology and accessories
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('fitness')"
-            >
-
-                <div class="category-icon">
-                    🏋️
-                </div>
-
-                <h3>
-                    Fitness
-                </h3>
-
-                <p>
-                    Workout and fitness essentials
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('motorsport')"
-            >
-
-                <div class="category-icon">
-                    🏎️
-                </div>
-
-                <h3>
-                    Motorsport
-                </h3>
-
-                <p>
-                    Racing-inspired gear and accessories
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('electronics')"
-            >
-
-                <div class="category-icon">
-                    🎧
-                </div>
-
-                <h3>
-                    Electronics
-                </h3>
-
-                <p>
-                    Everyday electronic products
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('watches')"
-            >
-
-                <div class="category-icon">
-                    ⌚
-                </div>
-
-                <h3>
-                    Watches
-                </h3>
-
-                <p>
-                    Classic and modern watches
-                </p>
-
-            </div>
-
-
-            <div
-                class="category-card"
-                onclick="navigate('accessories')"
-            >
-
-                <div class="category-icon">
-                    👜
-                </div>
-
-                <h3>
-                    Accessories
-                </h3>
-
-                <p>
-                    Complete your everyday style
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FASHION
-========================================================= -->
-
-<section
-    id="fashionPage"
-    class="page"
->
-
-
-    <div class="category-page-head">
-
-
-        <div class="breadcrumb">
-            Home / Fashion
-        </div>
-
-
-        <h1>
-            Fashion
-        </h1>
-
-
-        <p>
-            Explore fashion collections for men and women.
-        </p>
-
-
-    </div>
-
-
-    <div class="gender-grid">
-
-
-        <div
-            class="gender-card"
-            onclick="openGender('men')"
-        >
-
-            <div class="gender-icon">
-                👨
-            </div>
-
-            <h2>
-                Men
-            </h2>
-
-            <p>
-                T-Shirts, Shirts, Jeans, Trousers,
-                Jackets, Footwear and Accessories
-            </p>
-
-        </div>
-
-
-        <div
-            class="gender-card"
-            onclick="openGender('women')"
-        >
-
-            <div class="gender-icon">
-                👩
-            </div>
-
-            <h2>
-                Women
-            </h2>
-
-            <p>
-                Tops, Dresses, Jeans, Trousers,
-                Ethnic Wear, Footwear and Accessories
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     OTHER CATEGORY
-========================================================= -->
-
-<section
-    id="genericCategoryPage"
-    class="page"
->
-
-
-    <div class="category-page-head">
-
-
-        <div class="breadcrumb">
-
-            Home /
-
-            <span id="genericBreadcrumb">
-                Category
-            </span>
-
-        </div>
-
-
-        <h1 id="genericCategoryTitle">
-            Category
-        </h1>
-
-
-        <p id="genericCategoryDescription">
-            Explore products.
-        </p>
-
-
-    </div>
-
-
-    <div
-        class="subcategory-bar"
-        id="genericSubcategories"
-    ></div>
-
-
-    <div
-        class="product-grid"
-        id="genericProducts"
-    ></div>
-
-
-</section>
-
-
-<!-- =========================================================
-     MEN / WOMEN
-========================================================= -->
-
-<section
-    id="genderPage"
-    class="page"
->
-
-
-    <div class="shop-head">
-
-
-        <div class="breadcrumb">
-
-            Home / Fashion /
-
-            <span id="genderBreadcrumb"></span>
-
-        </div>
-
-
-        <h1 id="genderTitle"></h1>
-
-
-        <p>
-            Choose a category to continue shopping.
-        </p>
-
-
-    </div>
-
-
-    <div
-        class="subcategory-bar"
-        id="genderCategories"
-    ></div>
-
-
-    <div
-        class="product-grid"
-        id="genderPreviewProducts"
-    ></div>
-
-
-</section>
-
-
-<!-- =========================================================
-     SHOP
-========================================================= -->
-
-<section
-    id="shopPage"
-    class="page"
->
-
-
-    <div class="shop-head">
-
-
-        <div
-            class="breadcrumb"
-            id="shopBreadcrumb"
-        >
-            Home / Products
-        </div>
-
-
-        <h1 id="shopTitle">
-            Products
-        </h1>
-
-
-        <p id="shopDescription">
-            Discover products.
-        </p>
-
-
-    </div>
-
-
-    <div
-        class="subcategory-bar"
-        id="shopSubcategories"
-    ></div>
-
-
-    <div class="shop-controls">
-
-
-        <div class="shop-controls-left">
-
-
-            <button
-                class="control-btn"
-                onclick="toggleFilter()"
-            >
-                ☰ Filter
-            </button>
-
-
-            <button
-                class="control-btn"
-                onclick="clearFilters()"
-            >
-                Clear
-            </button>
-
-
-        </div>
-
-
-        <select
-            id="sortSelect"
-            class="sort-select"
-            onchange="sortProducts()"
-        >
-
-            <option value="default">
-                Sort: Recommended
-            </option>
-
-            <option value="low">
-                Price: Low to High
-            </option>
-
-            <option value="high">
-                Price: High to Low
-            </option>
-
-            <option value="rating">
-                Customer Rating
-            </option>
-
-        </select>
-
-
-    </div>
-
-
-    <div
-        id="filterPanel"
-        style="
-            display:none;
-            margin-bottom:25px;
-            padding:20px;
-            border:1px solid var(--border);
-            border-radius:14px;
-            background:#11131b;
-        "
-    >
-
-        <strong>
-            Price Range
-        </strong>
-
-
-        <div
-            style="
-                display:flex;
-                gap:10px;
-                margin-top:12px;
-            "
-        >
-
-            <input
-                id="minPrice"
-                type="number"
-                placeholder="Min ₹"
-                style="
-                    padding:10px;
-                    background:#0b0d12;
-                    color:white;
-                    border:1px solid var(--border);
-                    border-radius:8px;
-                "
-            >
-
-
-            <input
-                id="maxPrice"
-                type="number"
-                placeholder="Max ₹"
-                style="
-                    padding:10px;
-                    background:#0b0d12;
-                    color:white;
-                    border:1px solid var(--border);
-                    border-radius:8px;
-                "
-            >
-
-
-            <button
-                class="primary-btn"
-                onclick="applyFilters()"
-            >
-                Apply
-            </button>
-
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="product-grid"
-        id="productGrid"
-    ></div>
-
-
-</section>
-
-
-<!-- =========================================================
-     PRODUCT DETAIL
-========================================================= -->
-
-<section
-    id="productPage"
-    class="page"
->
-
-
-    <div class="product-detail">
-
-
-        <div
-            class="breadcrumb"
-            id="productBreadcrumb"
-        >
-            Home / Product
-        </div>
-
-
-        <div class="product-detail-grid">
-
-
-            <div
-                class="detail-image"
-                id="detailImage"
-            >
-                👕
-            </div>
-
-
-            <div class="detail-info">
-
-
-                <div
-                    class="detail-brand"
-                    id="detailBrand"
-                >
-                    Brand
-                </div>
-
-
-                <h1 id="detailName">
-                    Product
-                </h1>
-
-
-                <div
-                    class="rating"
-                    id="detailRating"
-                >
-                    ★★★★★
-                </div>
-
-
-                <div
-                    class="detail-price"
-                    id="detailPrice"
-                >
-                    ₹0
-                </div>
-
-
-                <p
-                    class="detail-description"
-                    id="detailDescription"
-                >
-                    Product description.
-                </p>
-
-
-                <div class="option-title">
-                    Select Size
-                </div>
-
-
-                <div class="size-buttons">
-
-
-                    <button
-                        class="size-btn"
-                        onclick="selectSize(this)"
-                    >
-                        S
-                    </button>
-
-
-                    <button
-                        class="size-btn active"
-                        onclick="selectSize(this)"
-                    >
-                        M
-                    </button>
-
-
-                    <button
-                        class="size-btn"
-                        onclick="selectSize(this)"
-                    >
-                        L
-                    </button>
-
-
-                    <button
-                        class="size-btn"
-                        onclick="selectSize(this)"
-                    >
-                        XL
-                    </button>
-
-
-                </div>
-
-
-                <div class="detail-actions">
-
-
-                    <button
-                        class="primary-btn"
-                        onclick="addCurrentProductToCart()"
-                    >
-                        🛒 Add to Cart
-                    </button>
-
-
-                    <button
-                        class="secondary-btn"
-                        onclick="addCurrentToWishlist()"
-                    >
-                        ♡ Wishlist
-                    </button>
-
-
-                </div>
-
-
-                <div
-                    style="
-                        margin-top:30px;
-                        padding:18px;
-                        border:1px solid var(--border);
-                        border-radius:12px;
-                        background:#10121a;
-                    "
-                >
-
-                    <strong>
-                        Where to buy
-                    </strong>
-
-
-                    <p
-                        style="
-                            color:#9297a7;
-                            font-size:13px;
-                            margin-top:8px;
-                        "
-                    >
-                        Choose the available store or affiliate link.
-                    </p>
-
-
-                    <button
-                        id="storeButton"
-                        class="primary-btn"
-                        style="
-                            margin-top:15px;
-                            width:100%;
-                        "
-                    >
-                        View Store
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-<!-- =========================================================
-     CART
-========================================================= -->
-
-<section
-    id="cartPage"
-    class="page"
->
-
-
-    <div class="cart-page">
-
-
-        <h1>
-            Your Cart
-        </h1>
-
-
-        <div id="cartContent"></div>
-
-
-    </div>
-
-
-</section>
-
-
-<!-- =========================================================
-     WISHLIST
-========================================================= -->
-
-<section
-    id="wishlistPage"
-    class="page"
->
-
-
-    <div class="shop-head">
-
-
-        <h1>
-            Wishlist
-        </h1>
-
-
-        <p>
-            Products you saved for later.
-        </p>
-
-
-    </div>
-
-
-    <div
-        class="product-grid"
-        id="wishlistGrid"
-    ></div>
-
-
-</section>
-
-
-<!-- =========================================================
-     ADMIN PAGE
-========================================================= -->
-
-<section
-    id="adminPage"
-    class="page"
->
-
-
-    <div class="admin-container">
-
-
-        <div class="admin-header">
-
-
-            <h1>
-                Admin Dashboard
-            </h1>
-
-
-            <p>
-                Manage your Grid & Gear products and store content.
-            </p>
-
-
-        </div>
-
-
-        <div class="admin-grid">
-
-
-            <!-- PRODUCT MANAGEMENT -->
-
-            <div class="admin-card">
-
-
-                <div class="admin-card-icon">
-                    📦
-                </div>
-
-
-                <h2>
-                    Product Management
-                </h2>
-
-
-                <p>
-                    Add, edit, delete and manage products
-                    displayed on Grid & Gear.
-                </p>
-
-
-                <button
-                    class="admin-action-btn"
-                    onclick="openProductManagement()"
-                >
-                    Manage Products
-                </button>
-
-
-            </div>
-
-
-            <!-- DASHBOARD -->
-
-            <div class="admin-card">
-
-
-                <div class="admin-card-icon">
-                    📊
-                </div>
-
-
-                <h2>
-                    Dashboard
-                </h2>
-
-
-                <p>
-                    View your products, categories and
-                    store information.
-                </p>
-
-
-                <button
-                    class="admin-action-btn"
-                    onclick="openAdminStats()"
-                >
-                    View Dashboard
-                </button>
-
-
-            </div>
-
-
-            <!-- AFFILIATE LINKS -->
-
-            <div class="admin-card">
-
-
-                <div class="admin-card-icon">
-                    🔗
-                </div>
-
-
-                <h2>
-                    Affiliate Links
-                </h2>
-
-
-                <p>
-                    Manage affiliate links for Amazon,
-                    Flipkart, Myntra and other stores.
-                </p>
-
-
-                <button
-                    class="admin-action-btn"
-                    onclick="openAffiliateManager()"
-                >
-                    Manage Links
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-</main>
-
-
-<!-- =========================================================
-     AUTH MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="authModal"
->
-
-
-    <div class="modal-box">
-
-
-        <h2 id="authTitle">
-            Login
-        </h2>
-
-
-        <div class="form-group">
-
-
-            <label>
-                Email
-            </label>
-
-
-            <input
-                id="authEmail"
-                type="email"
-                placeholder="you@example.com"
-            >
-
-
-        </div>
-
-
-        <div class="form-group">
-
-
-            <label>
-                Password
-            </label>
-
-
-            <input
-                id="authPassword"
-                type="password"
-                placeholder="Password"
-            >
-
-
-        </div>
-
-
-        <div class="modal-actions">
-
-
-            <button
-                class="primary-btn"
-                onclick="loginUser()"
-            >
-                Login
-            </button>
-
-
-            <button
-                class="secondary-btn"
-                onclick="signupUser()"
-            >
-                Sign up
-            </button>
-
-
-        </div>
-
-
-        <button
-            onclick="closeAuthModal()"
-            style="
-                width:100%;
-                margin-top:12px;
-                padding:10px;
-                border:0;
-                background:none;
-                color:#888;
-            "
-        >
-            Close
-        </button>
-
-
-    </div>
-
-
+  </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     ADMIN PAGE
+══════════════════════════════════════════════ -->
+<div id="page-admin" class="page-view">
+  <div class="container">
+    <div class="admin-view">
+      <div class="admin-header">
+        <div class="admin-title-block">
+          <div class="admin-sup">Product Management</div>
+          <div class="admin-title">Admin Panel</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn btn-outline btn-sm" onclick="showPage('shop')">← Back to store</button>
+          <button class="btn btn-sm" onclick="logout()" style="background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c">🔒 Log out</button>
+        </div>
+      </div>
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+      <div class="admin-grid">
+        <!-- ADD / EDIT FORM -->
+        <div class="admin-card">
+          <div class="admin-card-head">
+            <span class="admin-card-title" id="formTitle">Add New Product</span>
+            <button class="btn btn-outline btn-sm" id="resetFormBtn" onclick="resetForm()" style="display:none">Cancel edit</button>
+          </div>
+          <div class="admin-body">
+            <input type="hidden" id="editId">
+            <div class="field">
+              <label>Product Name *</label>
+              <input type="text" id="fName" placeholder="e.g. Racing Graphic T-Shirt">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Category *</label>
+                <select id="fCategory">
+                  <option value="">Select category</option>
+                  <option>Fashion</option><option>Beauty</option><option>Tech</option>
+                  <option>Fitness</option><option>Motorsport</option><option>Electronics</option>
+                  <option>Cosmetics</option><option>Watches</option><option>Accessories</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Image path</label>
+                <input type="text" id="fImage" placeholder="images/product.jpg">
+                <small>Filename inside your images/ folder</small>
+              </div>
+            </div>
+            <div class="field">
+              <label>Description</label>
+              <textarea id="fDesc" placeholder="A short description of the product…"></textarea>
+            </div>
 
-<div
-    class="toast"
-    id="toast"
-></div>
+            <div class="field">
+              <label>Stores &amp; Prices</label>
+              <div id="storeEntries"></div>
+              <button class="add-store-btn" type="button" onclick="addStoreEntry()">+ Add store</button>
+            </div>
 
+            <button class="admin-save-btn" onclick="saveProduct()">Save product</button>
+          </div>
+        </div>
 
+        <!-- STATS SIDEBAR -->
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="admin-card">
+            <div class="admin-card-head"><span class="admin-card-title">Quick stats</span></div>
+            <div class="admin-body" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div style="padding:16px;background:#f8f9fc;border-radius:10px;text-align:center">
+                <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--a)" id="statTotal">—</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:4px">Total products</div>
+              </div>
+              <div style="padding:16px;background:#f8f9fc;border-radius:10px;text-align:center">
+                <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--green)" id="statCats">—</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:4px">Categories</div>
+              </div>
+              <div style="padding:16px;background:#f8f9fc;border-radius:10px;text-align:center">
+                <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--amber)" id="statStores">—</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:4px">Avg. stores</div>
+              </div>
+              <div style="padding:16px;background:#f8f9fc;border-radius:10px;text-align:center">
+                <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--red)" id="statNoLink">—</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:4px">Missing links</div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-head"><span class="admin-card-title">Card template</span></div>
+            <div class="admin-body">
+              <div class="field">
+                <label>Default card style</label>
+                <select id="cardTemplate" onchange="setCardTemplate(this.value)">
+                  <option value="classic">Classic grid card</option>
+                  <option value="featured">Featured (3-col) card</option>
+                </select>
+                <small>Changes how products look in the shop</small>
+              </div>
+              <div class="field">
+                <label>Grid columns</label>
+                <select id="gridCols" onchange="setGridCols(this.value)">
+                  <option value="4">4 columns</option>
+                  <option value="3">3 columns</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT TABLE -->
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <span class="admin-card-title">All products</span>
+          <span style="font-size:12.5px;color:var(--muted)" id="tableMeta"></span>
+        </div>
+        <div class="product-table-wrap">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Stores</th>
+                <th>Lowest price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end admin page -->
+
+<!-- ══════════════════════════════════════════════
+     ADMIN LOGIN (private role check)
+══════════════════════════════════════════════ -->
+<div id="page-login" class="page-view">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);padding:24px">
+    <div style="width:min(420px,100%);animation:fadeUp .6s var(--ease) both">
+      <div style="text-align:center;margin-bottom:32px">
+        <div style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--a),var(--a2));display:inline-grid;place-items:center;font-size:28px;box-shadow:0 8px 28px rgba(59,91,219,.4);margin-bottom:20px">🔒</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px">Admin access</div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.4)">Private administrator login</div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:32px">
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:8px">Admin email</label>
+          <input id="adminEmailInput" type="email" placeholder="Your admin email" autocomplete="username" style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div style="margin-bottom:18px">
+          <label style="display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:8px">Password</label>
+          <input id="adminPasswordInput" type="password" placeholder="Admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')attemptLogin()" style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div id="loginError" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;background:rgba(240,68,56,.15);border:1px solid rgba(240,68,56,.3);color:#fca5a5;font-size:12.5px;font-weight:500"></div>
+        <button onclick="attemptLogin()" style="width:100%;padding:13px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 16px rgba(59,91,219,.4);cursor:pointer">Unlock Admin Panel →</button>
+        <div style="margin-top:20px;text-align:center">
+          <button onclick="showPage('shop')" style="background:none;border:none;color:rgba(255,255,255,.35);font-size:12.5px;cursor:pointer">← Back to store</button>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-size:11.5px;color:rgba(255,255,255,.2)">Only an account with the <strong>admin</strong> role can enter the dashboard.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-main">
+    <div class="footer-about">
+      <a class="brand" href="#"><span class="brand-mark">G&G</span><span class="brand-name">GRID <em>&amp;</em> GEAR</span></a>
+      <p>An independent product discovery site. We display product information and retailer links to help you explore your options across stores.</p>
+    </div>
+    <div>
+      <div class="footer-nav-title">Explore categories</div>
+      <div class="footer-links">
+        <a href="#" onclick="setCategory('Fashion');showPage('shop');return false">Fashion</a>
+        <a href="#" onclick="setCategory('Beauty');showPage('shop');return false">Beauty</a>
+        <a href="#" onclick="setCategory('Tech');showPage('shop');return false">Tech</a>
+        <a href="#" onclick="setCategory('Fitness');showPage('shop');return false">Fitness</a>
+        <a href="#" onclick="setCategory('Motorsport');showPage('shop');return false">Motorsport</a>
+        <a href="#" onclick="setCategory('Electronics');showPage('shop');return false">Electronics</a>
+        <a href="#" onclick="setCategory('Cosmetics');showPage('shop');return false">Cosmetics</a>
+        <a href="#" onclick="setCategory('Watches');showPage('shop');return false">Watches</a>
+        <a href="#" onclick="setCategory('Accessories');showPage('shop');return false">Accessories</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">Affiliate disclosure: Grid &amp; Gear may earn a commission from qualifying purchases via approved affiliate links. Prices and availability may change; confirm on the retailer's site.</div>
+  </div>
+</footer>
+
+<!-- COMPARISON DIALOG -->
+<div class="dialog-backdrop" id="comparisonDialog" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dialogTitle">
+  <div class="dialog">
+    <div class="dialog-head">
+      <h2 id="dialogTitle">Compare stores</h2>
+      <button class="close-btn" id="closeDialog" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="dialog-body">
+      <div class="dialog-prod">
+        <img id="dialogImage" src="" alt="">
+        <div><h3 id="dialogProductName"></h3><p id="dialogDescription"></p></div>
+      </div>
+      <div class="store-list" id="storeList"></div>
+      <div class="dialog-note">Prices and availability can change. Check the retailer's page for the final price and availability.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-icon" id="toastIcon">✓</span><span id="toastMsg"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* ══════════════════════════════════════════════
+   SUPABASE CONFIG
+   Replace ONLY these two values with your Supabase Project URL and anon/public key.
+   Never put your Supabase service_role key in this website.
+══════════════════════════════════════════════ */
+const SUPABASE_URL = "https://gjywyymwqgbpqyxeeubr.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_IAqwI2860iFgOytc9Zae4w_uJ8k6WD7";
+const supabaseConfigured = !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
+const supabaseClient = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-
-/* =========================================================
-   SUPABASE
-========================================================= */
-
-const SUPABASE_URL =
-    "https://gjywyymwqgbpqyxeeubr.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_IAqwI2860iFgOytc9Zae4w_uJ8k6WD7";
-
-let supabaseClient = null;
-
-
-if(
-    SUPABASE_URL &&
-    SUPABASE_ANON_KEY &&
-    !SUPABASE_URL.includes("PASTE_") &&
-    !SUPABASE_ANON_KEY.includes("PASTE_")
-){
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
-
-}
-
-
-/* =========================================================
-   PRODUCT DATA
-========================================================= */
-
-const products = [
-
-    {
-        id:1,
-        name:"Racing Graphic T-Shirt",
-        brand:"Grid & Gear",
-        gender:"men",
-        category:"fashion",
-        subcategory:"tshirts",
-        price:529,
-        rating:4.4,
-        icon:"👕",
-        image:"",
-        description:
-            "Motorsport-inspired graphic T-shirt for everyday casual wear.",
-        store:"Store A",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:2,
-        name:"Classic Casual Shirt",
-        brand:"Urban Motion",
-        gender:"men",
-        category:"fashion",
-        subcategory:"shirts",
-        price:799,
-        rating:4.3,
-        icon:"👔",
-        image:"",
-        description:
-            "Clean casual shirt designed for everyday styling.",
-        store:"Store B",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:3,
-        name:"Slim Fit Blue Jeans",
-        brand:"Street Grid",
-        gender:"men",
-        category:"fashion",
-        subcategory:"jeans",
-        price:1199,
-        rating:4.5,
-        icon:"👖",
-        image:"",
-        description:
-            "Modern slim-fit denim jeans.",
-        store:"Store A",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:4,
-        name:"Men's Joggers",
-        brand:"Active Grid",
-        gender:"men",
-        category:"fashion",
-        subcategory:"joggers",
-        price:699,
-        rating:4.2,
-        icon:"👖",
-        image:"",
-        description:
-            "Comfortable joggers for daily use and workouts.",
-        store:"Store C",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:5,
-        name:"Women's Oversized Top",
-        brand:"Grid Women",
-        gender:"women",
-        category:"fashion",
-        subcategory:"tops",
-        price:649,
-        rating:4.5,
-        icon:"👚",
-        image:"",
-        description:
-            "Relaxed oversized top for casual styling.",
-        store:"Store B",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:6,
-        name:"Women's Straight Jeans",
-        brand:"Urban Femme",
-        gender:"women",
-        category:"fashion",
-        subcategory:"jeans",
-        price:1299,
-        rating:4.4,
-        icon:"👖",
-        image:"",
-        description:
-            "Straight-fit jeans for everyday wear.",
-        store:"Store A",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:7,
-        name:"Wireless Earbuds",
-        brand:"TechCore",
-        gender:"",
-        category:"tech",
-        subcategory:"audio",
-        price:999,
-        rating:4.3,
-        icon:"🎧",
-        image:"",
-        description:
-            "Compact wireless earbuds for music and calls.",
-        store:"Store A",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:8,
-        name:"Smart Watch",
-        brand:"TechCore",
-        gender:"",
-        category:"watches",
-        subcategory:"smartwatches",
-        price:1999,
-        rating:4.4,
-        icon:"⌚",
-        image:"",
-        description:
-            "Everyday smartwatch with fitness features.",
-        store:"Store B",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:9,
-        name:"Motorsport Cap",
-        brand:"Grid Racing",
-        gender:"",
-        category:"motorsport",
-        subcategory:"caps",
-        price:499,
-        rating:4.6,
-        icon:"🧢",
-        image:"",
-        description:
-            "Motorsport-inspired cap.",
-        store:"Store C",
-        storeUrl:"https://example.com",
-        clueLink:""
-    },
-
-    {
-        id:10,
-        name:"Gym Training Gloves",
-        brand:"FitGrid",
-        gender:"",
-        category:"fitness",
-        subcategory:"gloves",
-        price:399,
-        rating:4.1,
-        icon:"🥊",
-        image:"",
-        description:
-            "Training gloves for gym workouts.",
-        store:"Store A",
-        storeUrl:"https://example.com",
-        clueLink:""
-    }
-
+/* ══════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════ */
+let products = [
+  {id:1,name:"Racing Graphic T-Shirt",category:"Fashion",image:"images/racing-shirt-new.jpg",description:"A casual graphic T-shirt for motorsport fans.",stores:[{name:"Amazon",price:999,link:"PASTE_AMAZON_AFFILIATE_LINK_HERE"},{name:"Myntra",price:549,link:"PASTE_MYNTRA_AFFILIATE_LINK_HERE"},{name:"Flipkart",price:529,link:"PASTE_FLIPKART_AFFILIATE_LINK_HERE"}]},
+  {id:2,name:"Classic White Sneakers",category:"Fashion",image:"images/sneakers.jpg",description:"Versatile sneakers for everyday outfits.",stores:[{name:"Amazon",price:1499,link:"PASTE_AMAZON_AFFILIATE_LINK_HERE"},{name:"Myntra",price:1399,link:"PASTE_MYNTRA_AFFILIATE_LINK_HERE"},{name:"Flipkart",price:1599,link:"PASTE_FLIPKART_AFFILIATE_LINK_HERE"}]},
+  {id:3,name:"Wireless Earbuds",category:"Tech",image:"images/earbuds.jpg",description:"Compact wireless earbuds for daily use.",stores:[{name:"Amazon",price:999,link:"PASTE_AMAZON_AFFILIATE_LINK_HERE"},{name:"Flipkart",price:1099,link:"PASTE_FLIPKART_AFFILIATE_LINK_HERE"}]},
+  {id:4,name:"Gym Duffel Bag",category:"Fitness",image:"images/gym-bag.jpg",description:"A practical bag for gym and travel essentials.",stores:[{name:"Amazon",price:799,link:"PASTE_AMAZON_AFFILIATE_LINK_HERE"},{name:"Flipkart",price:849,link:"PASTE_FLIPKART_AFFILIATE_LINK_HERE"}]},
+  {id:5,name:"Motorsport Racing Cap",category:"Motorsport",image:"images/racing-cap.jpg",description:"A racing-inspired cap for everyday wear.",stores:[{name:"Amazon",price:499,link:"PASTE_AMAZON_AFFILIATE_LINK_HERE"},{name:"Myntra",price:599,link:"PASTE_MYNTRA_AFFILIATE_LINK_HERE"}]},
+  {id:6,name:"Cosmetics Product",category:"Cosmetics",image:"images/cosmetics.jpg",description:"Replace this with a real cosmetics product.",stores:[{name:"Store",price:0,link:"PASTE_APPROVED_AFFILIATE_LINK_HERE"}]},
+  {id:7,name:"Everyday Watch",category:"Watches",image:"images/watch.jpg",description:"Replace this with a real watch product.",stores:[{name:"Store",price:0,link:"PASTE_APPROVED_AFFILIATE_LINK_HERE"}]},
+  {id:8,name:"Electronics Product",category:"Electronics",image:"images/electronics.jpg",description:"Replace this with a real electronics product.",stores:[{name:"Store",price:0,link:"PASTE_APPROVED_AFFILIATE_LINK_HERE"}]},
+  {id:9,name:"Everyday Accessory",category:"Accessories",image:"images/accessories.jpg",description:"Replace this with a real accessory.",stores:[{name:"Store",price:0,link:"PASTE_APPROVED_AFFILIATE_LINK_HERE"}]},
+  {id:10,name:"Beauty Essential",category:"Beauty",image:"images/beauty.jpg",description:"Replace this with a real beauty product.",stores:[{name:"Store",price:0,link:"PASTE_APPROVED_AFFILIATE_LINK_HERE"}]}
 ];
+let nextId = 11;
+let selectedCategory = "All";
+let currentLayout = "grid";
+let currentTemplate = "classic";
+let currentCols = "4";
+let isAuthenticated = false;
+let currentUser = null;
+let currentUserRole = null;
+let authMode = "login";
+let adminLoginMode = false;
 
+/* ── UTILS ── */
+const $ = id => document.getElementById(id);
+function fmt(n){return "₹"+Number(n).toLocaleString("en-IN")}
+function validLink(l){return typeof l==="string"&&l.trim()&&!l.startsWith("PASTE_")&&l!=="#"}
+function lowestPrice(p){const prices=p.stores.map(s=>+s.price).filter(n=>n>0);return prices.length?Math.min(...prices):null}
 
-/* =========================================================
-   STATE
-========================================================= */
+function showToast(msg,icon="✓"){
+  const t=$("toast");$("toastMsg").textContent=msg;$("toastIcon").textContent=icon;
+  t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)
+}
 
-let cart =
-    JSON.parse(
-        localStorage.getItem("gridGearCart") || "[]"
-    );
+/* ══════════════════════════════════════════════
+   AUTHENTICATION + ROLE SECURITY
+   Authentication is handled by Supabase.
+   Admin permission is enforced by the database RLS policies, not by hidden HTML.
+══════════════════════════════════════════════ */
+async function getMyProfile(){
+  if(!supabaseClient)return null;
+  const {data,error}=await supabaseClient.from("profiles").select("id,role").maybeSingle();
+  if(error){console.error(error);return null;}
+  return data;
+}
 
-let wishlist =
-    JSON.parse(
-        localStorage.getItem("gridGearWishlist") || "[]"
-    );
+async function refreshAuthState(){
+  if(!supabaseClient){
+    isAuthenticated=false;currentUser=null;currentUserRole=null;
+    updateAuthButtons();
+    return;
+  }
+  const {data:{session}}=await supabaseClient.auth.getSession();
+  currentUser=session?.user||null;
+  isAuthenticated=!!currentUser;
+  currentUserRole=null;
+  if(currentUser){
+    const profile=await getMyProfile();
+    currentUserRole=profile?.role||"user";
+  }
+  updateAuthButtons();
+}
 
-let currentProduct = null;
-
-let currentProducts = [];
-
-
-/* =========================================================
-   CATEGORY DATA
-========================================================= */
-
-const categoryData = {
-
-    fashion:{
-        title:"Fashion",
-        description:
-            "Discover clothing, footwear and accessories.",
-        subcategories:[
-            ["men","Men"],
-            ["women","Women"]
-        ]
-    },
-
-    beauty:{
-        title:"Beauty",
-        description:
-            "Beauty, grooming and personal care products.",
-        subcategories:[
-            ["skincare","Skincare"],
-            ["makeup","Makeup"],
-            ["haircare","Haircare"],
-            ["fragrance","Fragrance"]
-        ]
-    },
-
-    tech:{
-        title:"Tech",
-        description:
-            "Technology products and everyday smart accessories.",
-        subcategories:[
-            ["audio","Audio"],
-            ["smartphones","Smartphones"],
-            ["laptops","Laptops"],
-            ["accessories","Accessories"]
-        ]
-    },
-
-    fitness:{
-        title:"Fitness",
-        description:
-            "Workout and fitness essentials.",
-        subcategories:[
-            ["gloves","Gym Gloves"],
-            ["equipment","Equipment"],
-            ["wearables","Wearables"],
-            ["bags","Fitness Bags"]
-        ]
-    },
-
-    motorsport:{
-        title:"Motorsport",
-        description:
-            "Racing-inspired fashion and accessories.",
-        subcategories:[
-            ["caps","Caps"],
-            ["shirts","Racing Shirts"],
-            ["jackets","Racing Jackets"],
-            ["accessories","Accessories"]
-        ]
-    },
-
-    electronics:{
-        title:"Electronics",
-        description:
-            "Everyday electronic products.",
-        subcategories:[
-            ["audio","Audio"],
-            ["chargers","Chargers"],
-            ["cables","Cables"],
-            ["accessories","Accessories"]
-        ]
-    },
-
-    watches:{
-        title:"Watches",
-        description:
-            "Classic and smart watches.",
-        subcategories:[
-            ["smartwatches","Smart Watches"],
-            ["analog","Analog Watches"],
-            ["digital","Digital Watches"]
-        ]
-    },
-
-    accessories:{
-        title:"Accessories",
-        description:
-            "Complete your everyday style.",
-        subcategories:[
-            ["bags","Bags"],
-            ["caps","Caps"],
-            ["wallets","Wallets"],
-            ["sunglasses","Sunglasses"]
-        ]
+function updateAuthButtons(){
+  const userBtn=$("userNavBtn");
+  const adminBtn=$("adminNavBtn");
+  if(userBtn){
+    if(currentUser){
+      userBtn.textContent="Log out";
+      userBtn.onclick=logoutUser;
+    }else{
+      userBtn.textContent="Login / Sign up";
+      userBtn.onclick=()=>showPage("user-auth");
     }
-
-};
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function hideAllPages(){
-
-    document
-        .querySelectorAll(".page")
-        .forEach(page => {
-
-            page.classList.remove("active");
-
-        });
-
+  }
+  if(adminBtn)adminBtn.style.display=(currentUser && currentUserRole==="admin")?"":"none";
 }
 
+function setAuthMode(mode){
+  authMode=mode;
+  $("authTitle").textContent=mode==="signup"?"Create account":"User login";
+  $("authSubtitle").textContent=mode==="signup"?"Create your Grid & Gear account":"Log in to your Grid & Gear account";
+  $("userAuthBtn").textContent=mode==="signup"?"Create account →":"Login →";
+  $("authLoginTab").style.background=mode==="login"?"rgba(255,255,255,.12)":"transparent";
+  $("authLoginTab").style.color=mode==="login"?"#fff":"rgba(255,255,255,.6)";
+  $("authSignupTab").style.background=mode==="signup"?"rgba(255,255,255,.12)":"transparent";
+  $("authSignupTab").style.color=mode==="signup"?"#fff":"rgba(255,255,255,.6)";
+  $("userAuthError").style.display="none";
+}
 
-function showPage(id){
+async function attemptUserAuth(){
+  if(!supabaseClient){showToast("Connect Supabase first","⚠️");return}
+  const email=$("userEmailInput").value.trim();
+  const password=$("userPasswordInput").value;
+  const err=$("userAuthError");
+  err.style.display="none";
+  if(!email||!password){err.textContent="Enter your email and password.";err.style.display="block";return}
+  let result;
+  if(authMode==="signup") result=await supabaseClient.auth.signUp({email,password});
+  else result=await supabaseClient.auth.signInWithPassword({email,password});
+  if(result.error){err.textContent=result.error.message;err.style.display="block";return}
+  if(authMode==="signup" && !result.data.session){
+    err.textContent="Account created. Check your email to confirm the account, then log in.";
+    err.style.display="block";
+    return;
+  }
+  await refreshAuthState();
+  $("userEmailInput").value="";$("userPasswordInput").value="";
+  showToast("Logged in","✓");
+  showPage(currentUserRole==="admin"?"admin":"shop");
+}
 
-    hideAllPages();
+async function attemptLogin(){
+  if(!supabaseClient){showLoginError("Connect Supabase first. Add your Project URL and anon key in the code.");return}
+  const email=$("adminEmailInput").value.trim();
+  const password=$("adminPasswordInput").value;
+  if(!email||!password){showLoginError("Enter the admin email and password.");return}
+  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+  if(error){showLoginError("Invalid email or password.");return}
+  currentUser=data.user;
+  const profile=await getMyProfile();
+  if(!profile || profile.role!=="admin"){
+    await supabaseClient.auth.signOut();
+    currentUser=null;currentUserRole=null;isAuthenticated=false;
+    showLoginError("This account is not an administrator.");
+    return;
+  }
+  currentUserRole="admin";isAuthenticated=true;updateAuthButtons();
+  $("adminEmailInput").value="";$("adminPasswordInput").value="";
+  $("loginError").style.display="none";
+  await loadProducts();
+  showPage("admin");
+}
 
-    const page =
-        document.getElementById(id);
+function showLoginError(message){
+  const el=$("loginError");el.textContent="❌ "+message;el.style.display="block";
+}
 
-    if(page){
+async function logoutUser(){
+  if(supabaseClient)await supabaseClient.auth.signOut();
+  currentUser=null;currentUserRole=null;isAuthenticated=false;updateAuthButtons();
+  showPage("shop");showToast("Logged out","👋");
+}
 
-        page.classList.add("active");
+async function logout(){
+  await logoutUser();
+}
 
+async function requireAdmin(){
+  if(!supabaseClient){showPage("login");return false}
+  await refreshAuthState();
+  if(!currentUser || currentUserRole!=="admin"){showPage("login");return false}
+  return true;
+}
+
+/* ── PAGE SWITCHING ── */
+function showPage(page){
+  if(page==="admin"){
+    requireAdmin().then(ok=>{if(ok)showPageDirect("admin")});
+    return;
+  }
+  showPageDirect(page);
+}
+
+function showPageDirect(page){
+  document.querySelectorAll(".page-view").forEach(v=>v.classList.remove("active"));
+  const target=$("page-"+page);
+  if(!target)return;
+  target.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(page==="admin"){renderAdminTable();updateStats();}
+  if(page==="login")setTimeout(()=>$("adminEmailInput")?.focus(),200);
+  if(page==="user-auth")setTimeout(()=>$("userEmailInput")?.focus(),200);
+}
+
+/* ── LAYOUT & TEMPLATE ── */
+function setLayout(mode){
+  currentLayout=mode;
+  $("layoutGrid").classList.toggle("active",mode==="grid");
+  $("layoutList").classList.toggle("active",mode==="list");
+  renderProducts();
+}
+function setCardTemplate(t){currentTemplate=t;renderProducts()}
+function setGridCols(c){currentCols=c;renderProducts()}
+
+/* ── CATEGORY ── */
+function setCategory(cat){
+  selectedCategory=cat;
+  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.toggle("active",b.dataset.category===cat));
+  document.querySelectorAll(".cat-card").forEach(c=>c.classList.toggle("active",c.dataset.cat===cat));
+  renderProducts();
+}
+
+/* ── RENDER PRODUCTS ── */
+function renderProducts(){
+  const q=$("searchInput").value.trim().toLowerCase();
+  const filtered=products.filter(p=>{
+    const matchCat=selectedCategory==="All"||p.category===selectedCategory;
+    return matchCat&&`${p.name} ${p.category} ${p.description}`.toLowerCase().includes(q);
+  });
+  $("resultsCount").textContent=`${filtered.length} product${filtered.length===1?"":"s"} shown`;
+  const grid=$("productGrid");
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><strong>Nothing found</strong><p>Try a different search term or category.</p></div>`;
+    grid.className="product-grid grid-4";
+    return;
+  }
+  if(currentLayout==="list"){
+    grid.className="product-grid list-view";
+    grid.innerHTML=filtered.map(p=>renderListCard(p)).join("");
+  } else {
+    const colClass=currentTemplate==="featured"?"grid-3":`grid-${currentCols}`;
+    grid.className=`product-grid ${colClass}`;
+    grid.innerHTML=filtered.map(p=>currentTemplate==="featured"?renderFeaturedCard(p):renderClassicCard(p)).join("");
+  }
+  grid.querySelectorAll("[data-pid]").forEach(btn=>btn.addEventListener("click",()=>openDialog(+btn.dataset.pid)));
+}
+
+function renderClassicCard(p){
+  const low=lowestPrice(p);
+  return `<article class="card-classic"><div class="c-img"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><span class="c-tag">${p.category}</span></div><div class="c-body"><div class="c-cat">${p.category}</div><h3 class="c-name">${p.name}</h3><p class="c-desc">${p.description}</p><div class="c-foot"><div><div class="c-price-from">${low?"From":"Price"}</div><div class="c-price">${low?fmt(low):"—"}</div></div><button class="compare-btn" data-pid="${p.id}">Compare →</button></div></div></article>`;
+}
+
+function renderFeaturedCard(p){
+  const low=lowestPrice(p);
+  return `<article class="card-featured"><div class="f-img"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><span class="f-tag">${p.category}</span><span class="f-stores-count">${p.stores.length} store${p.stores.length===1?"":"s"}</span></div><div class="f-body"><div class="f-cat">${p.category}</div><h3 class="f-name">${p.name}</h3><p class="f-desc">${p.description}</p><div class="f-foot"><div><div class="f-price-label">${low?"From":"Price"}</div><div class="f-price">${low?fmt(low):"—"}</div></div><button class="compare-btn" data-pid="${p.id}">Compare stores →</button></div></div></article>`;
+}
+
+function renderListCard(p){
+  const low=lowestPrice(p);
+  return `<article class="card-list"><div class="l-img"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"></div><div class="l-info"><div class="l-cat">${p.category}</div><div class="l-name">${p.name}</div><div class="l-desc">${p.description}</div></div><div class="l-right"><div class="l-stores">${p.stores.length} store${p.stores.length===1?"":"s"}</div><div class="l-price">${low?fmt(low):"—"}</div><button class="compare-btn btn-sm" data-pid="${p.id}">Compare →</button></div></article>`;
+}
+
+/* ── DIALOG ── */
+function openDialog(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const img=$("dialogImage");img.src=p.image;img.alt=p.name;img.style.display="block";img.onerror=()=>img.style.display="none";
+  $("dialogProductName").textContent=p.name;
+  $("dialogDescription").textContent=p.description;
+  const sorted=[...p.stores].sort((a,b)=>(+a.price>0?+a.price:Infinity)-(+b.price>0?+b.price:Infinity));
+  const minP=lowestPrice(p);
+  $("storeList").innerHTML=sorted.map(s=>{
+    const hasPx=+s.price>0;
+    const isBest=hasPx&&+s.price===minP;
+    const btn=validLink(s.link)?`<a class="store-link" href="${s.link}" target="_blank" rel="sponsored nofollow noopener">Visit ↗</a>`:`<span class="store-link unavailable">No link</span>`;
+    return `<div class="store-row"><span class="store-name">${s.name}${isBest?'<span class="best-tag">Best</span>':""}</span><span class="store-price">${hasPx?fmt(s.price):"—"}</span>${btn}</div>`;
+  }).join("");
+  const dlg=$("comparisonDialog");dlg.classList.add("open");dlg.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";$("closeDialog").focus();
+}
+function closeDialog(){const d=$("comparisonDialog");d.classList.remove("open");d.setAttribute("aria-hidden","true");document.body.style.overflow=""}
+$("closeDialog").addEventListener("click",closeDialog);
+$("comparisonDialog").addEventListener("click",e=>{if(e.target===$("comparisonDialog"))closeDialog()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("comparisonDialog").classList.contains("open"))closeDialog()});
+
+/* ── ADMIN: STORE ENTRIES ── */
+let storeCount=0;
+function addStoreEntry(name="",price="",link=""){
+  storeCount++;
+  const id=`se-${storeCount}`;
+  const div=document.createElement("div");div.className="store-entry";div.id=id;
+  div.innerHTML=`<div class="store-entry-head"><span class="store-entry-title">Store ${storeCount}</span><button class="remove-store" type="button" onclick="document.getElementById('${id}').remove()">×</button></div><div class="field-row"><div class="field"><label>Store name</label><input type="text" class="s-name" placeholder="e.g. Amazon" value="${name}"></div><div class="field"><label>Price (₹)</label><input type="number" class="s-price" placeholder="0" value="${price}" min="0"></div></div><div class="field"><label>Affiliate link</label><input type="text" class="s-link" placeholder="https://…" value="${link}"></div>`;
+  $("storeEntries").appendChild(div);
+}
+
+function collectStores(){
+  return [...document.querySelectorAll(".store-entry")].map(e=>({
+    name:e.querySelector(".s-name").value.trim()||"Store",
+    price:+e.querySelector(".s-price").value||0,
+    link:e.querySelector(".s-link").value.trim()||"PASTE_AFFILIATE_LINK"
+  })).filter(s=>s.name);
+}
+
+async function saveProduct(){
+  if(!await requireAdmin())return;
+  const name=$("fName").value.trim();
+  const cat=$("fCategory").value;
+  if(!name||!cat){showToast("Please fill product name and category","⚠️");return}
+  const stores=collectStores();
+  if(!stores.length){addStoreEntry();showToast("Add at least one store","⚠️");return}
+  const payload={name,category:cat,image:$("fImage").value.trim()||"images/product.jpg",description:$("fDesc").value.trim(),stores};
+  const editId=Number($("editId").value)||0;
+  if(!supabaseClient){showToast("Connect Supabase first","⚠️");return}
+  let error=null;
+  if(editId){
+    ({error}=await supabaseClient.from("products").update(payload).eq("id",editId));
+  }else{
+    ({error}=await supabaseClient.from("products").insert(payload));
+  }
+  if(error){console.error(error);showToast("Could not save product: "+error.message,"❌");return}
+  await loadProducts();
+  resetForm();renderAdminTable();updateStats();renderProducts();
+  showToast(editId?"Product updated":"Product added",editId?"✏️":"✓");
+}
+
+function resetForm(){
+  $("editId").value="";$("fName").value="";$("fCategory").value="";$("fImage").value="";$("fDesc").value="";
+  $("storeEntries").innerHTML="";storeCount=0;
+  $("formTitle").textContent="Add New Product";$("resetFormBtn").style.display="none";
+  addStoreEntry();
+}
+
+function editProduct(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  $("editId").value=id;$("fName").value=p.name;$("fCategory").value=p.category;$("fImage").value=p.image;$("fDesc").value=p.description;
+  $("storeEntries").innerHTML="";storeCount=0;
+  p.stores.forEach(s=>addStoreEntry(s.name,s.price,s.link));
+  $("formTitle").textContent="Edit Product";$("resetFormBtn").style.display="";
+  showPage("admin");window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteProduct(id){
+  if(!await requireAdmin())return;
+  if(!confirm("Delete this product?"))return;
+  const {error}=await supabaseClient.from("products").delete().eq("id",id);
+  if(error){console.error(error);showToast("Could not delete product: "+error.message,"❌");return}
+  await loadProducts();renderAdminTable();updateStats();renderProducts();showToast("Product deleted","🗑️");
+}
+
+async function loadProducts(){
+  if(!supabaseClient)return;
+  const {data,error}=await supabaseClient.from("products").select("id,name,category,image,description,rating,stores").order("id",{ascending:true});
+  if(error){console.error(error);showToast("Could not load products: "+error.message,"❌");return}
+  products=(data||[]).map(p=>({...p,stores:Array.isArray(p.stores)?p.stores:[]}));
+  nextId=products.reduce((m,p)=>Math.max(m,Number(p.id)||0),0)+1;
+  renderProducts();
+  if($("productTableBody")){renderAdminTable();updateStats()}
+}
+
+function renderAdminTable(){
+  $("tableMeta").textContent=`${products.length} product${products.length===1?"":"s"}`;
+  $("productTableBody").innerHTML=products.map(p=>{
+    const low=lowestPrice(p);
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:12px"><div class="tbl-thumb"><img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'"></div><span class="tbl-name">${p.name}</span></div></td>
+      <td><span class="tbl-cat">${p.category}</span></td>
+      <td>${p.stores.length}</td>
+      <td class="tbl-price">${low?fmt(low):"—"}</td>
+      <td><div class="tbl-actions"><button class="tbl-edit" onclick="editProduct(${p.id})">Edit</button><button class="tbl-delete" onclick="deleteProduct(${p.id})">Delete</button></div></td>
+    </tr>`;
+  }).join("");
+}
+
+function updateStats(){
+  $("statTotal").textContent=products.length;
+  const cats=new Set(products.map(p=>p.category));$("statCats").textContent=cats.size;
+  const avgStores=products.length?Math.round(products.reduce((s,p)=>s+p.stores.length,0)/products.length):0;$("statStores").textContent=avgStores;
+  const noLink=products.filter(p=>p.stores.some(s=>!validLink(s.link))).length;$("statNoLink").textContent=noLink;
+}
+
+/* ── SCROLL REVEAL ── */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");revealObs.unobserve(e.target)}})
+},{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>revealObs.observe(el));
+
+/* ── INIT ── */
+$("searchInput").addEventListener("input",renderProducts);
+document.querySelectorAll(".cat-btn").forEach(b=>b.addEventListener("click",()=>setCategory(b.dataset.category)));
+resetForm();
+
+(async function init(){
+  if(!supabaseConfigured){
+    renderProducts();
+    showToast("Add your Supabase URL and anon key to connect the database","⚠️");
+  }else{
+    await refreshAuthState();
+    await loadProducts();
+    if(supabaseClient){
+      supabaseClient.auth.onAuthStateChange(async (_event,session)=>{
+        currentUser=session?.user||null;
+        isAuthenticated=!!currentUser;
+        if(currentUser){
+          const profile=await getMyProfile();
+          currentUserRole=profile?.role||"user";
+        }else{currentUserRole=null}
+        updateAuthButtons();
+      });
     }
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-async function navigate(route){
-
-    if(route === "home"){
-
-        showPage("homePage");
-
-        history.replaceState(
-            null,
-            "",
-            "#home"
-        );
-
-        return;
-    }
-
-
-    if(route === "fashion"){
-
-        showPage("fashionPage");
-
-        history.replaceState(
-            null,
-            "",
-            "#fashion"
-        );
-
-        return;
-    }
-
-
-    if(route === "cart"){
-
-        renderCart();
-
-        showPage("cartPage");
-
-        history.replaceState(
-            null,
-            "",
-            "#cart"
-        );
-
-        return;
-    }
-
-
-    if(route === "wishlist"){
-
-        renderWishlist();
-
-        showPage("wishlistPage");
-
-        history.replaceState(
-            null,
-            "",
-            "#wishlist"
-        );
-
-        return;
-    }
-
-
-    /* =====================================================
-       ADMIN ROUTE
-    ===================================================== */
-
-    if(route === "admin"){
-
-        const isAdmin =
-            await checkAdmin();
-
-        if(!isAdmin){
-
-            showToast(
-                "Admin access required."
-            );
-
-            return;
-        }
-
-
-        showPage("adminPage");
-
-        history.replaceState(
-            null,
-            "",
-            "#admin"
-        );
-
-        return;
-    }
-
-
-    if(categoryData[route]){
-
-        openGenericCategory(route);
-
-        return;
-    }
-
-}
-
-
-/* =========================================================
-   ADMIN CHECK
-========================================================= */
-
-async function checkAdmin(){
-
-    if(!supabaseClient)
-        return false;
-
-
-    try{
-
-        const {
-            data:sessionData
-        } =
-            await supabaseClient.auth.getSession();
-
-
-        if(
-            !sessionData ||
-            !sessionData.session ||
-            !sessionData.session.user
-        ){
-
-            return false;
-        }
-
-
-        const user =
-            sessionData.session.user;
-
-
-        const {
-            data:profile,
-            error
-        } =
-            await supabaseClient
-                .from("profiles")
-                .select("role")
-                .eq("id",user.id)
-                .maybeSingle();
-
-
-        if(error){
-
-            console.error(
-                "Admin role check error:",
-                error
-            );
-
-            return false;
-        }
-
-
-        return (
-            profile &&
-            profile.role === "admin"
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "Admin check error:",
-            error
-        );
-
-        return false;
-    }
-
-}
-
-
-/* =========================================================
-   ADMIN BUTTON
-========================================================= */
-
-async function updateAdminButton(user){
-
-    const adminButton =
-        document.getElementById(
-            "adminButton"
-        );
-
-
-    if(!adminButton)
-        return;
-
-
-    adminButton.style.display =
-        "none";
-
-
-    if(!user)
-        return;
-
-
-    const isAdmin =
-        await checkAdmin();
-
-
-    if(isAdmin){
-
-        adminButton.style.display =
-            "block";
-
-    }
-
-}
-
-
-/* =========================================================
-   ADMIN ACTIONS
-========================================================= */
-
-function openProductManagement(){
-
-    showToast(
-        "Product management will be connected to Supabase next."
-    );
-
-}
-
-
-function openAdminStats(){
-
-    showToast(
-        `Currently ${products.length} demo products are loaded.`
-    );
-
-}
-
-
-function openAffiliateManager(){
-
-    showToast(
-        "Affiliate link management will be connected next."
-    );
-
-}
-
-
-/* =========================================================
-   FASHION GENDER
-========================================================= */
-
-function openGender(gender){
-
-    const title =
-        gender === "men"
-        ? "Men's Fashion"
-        : "Women's Fashion";
-
-
-    document.getElementById(
-        "genderTitle"
-    ).textContent =
-        title;
-
-
-    document.getElementById(
-        "genderBreadcrumb"
-    ).textContent =
-        gender === "men"
-        ? "Men"
-        : "Women";
-
-
-    const categories =
-        gender === "men"
-        ? [
-            ["tshirts","T-Shirts"],
-            ["shirts","Shirts"],
-            ["jeans","Jeans"],
-            ["trousers","Trousers"],
-            ["joggers","Joggers"],
-            ["jackets","Jackets"],
-            ["footwear","Footwear"],
-            ["accessories","Accessories"]
-        ]
-        : [
-            ["tops","Tops"],
-            ["dresses","Dresses"],
-            ["jeans","Jeans"],
-            ["trousers","Trousers"],
-            ["ethnic","Ethnic Wear"],
-            ["footwear","Footwear"],
-            ["accessories","Accessories"]
-        ];
-
-
-    const container =
-        document.getElementById(
-            "genderCategories"
-        );
-
-
-    container.innerHTML = "";
-
-
-    categories.forEach(cat => {
-
-        const button =
-            document.createElement("button");
-
-
-        button.className =
-            "subcategory-btn";
-
-
-        button.textContent =
-            cat[1];
-
-
-        button.onclick = () =>
-            openShop(
-                "fashion",
-                gender,
-                cat[0],
-                `${title} - ${cat[1]}`
-            );
-
-
-        container.appendChild(
-            button
-        );
-
-    });
-
-
-    const preview =
-        products.filter(
-            p =>
-                p.category === "fashion" &&
-                p.gender === gender
-        );
-
-
-    renderProductGrid(
-        preview,
-        "genderPreviewProducts"
-    );
-
-
-    showPage(
-        "genderPage"
-    );
-
-
-    history.replaceState(
-        null,
-        "",
-        `#fashion/${gender}`
-    );
-
-}
-
-
-/* =========================================================
-   GENERIC CATEGORY
-========================================================= */
-
-function openGenericCategory(category){
-
-    const data =
-        categoryData[category];
-
-
-    document.getElementById(
-        "genericCategoryTitle"
-    ).textContent =
-        data.title;
-
-
-    document.getElementById(
-        "genericCategoryDescription"
-    ).textContent =
-        data.description;
-
-
-    document.getElementById(
-        "genericBreadcrumb"
-    ).textContent =
-        data.title;
-
-
-    const sub =
-        document.getElementById(
-            "genericSubcategories"
-        );
-
-
-    sub.innerHTML = "";
-
-
-    data.subcategories.forEach(item => {
-
-        const btn =
-            document.createElement("button");
-
-
-        btn.className =
-            "subcategory-btn";
-
-
-        btn.textContent =
-            item[1];
-
-
-        btn.onclick = () =>
-            openShop(
-                category,
-                "",
-                item[0],
-                `${data.title} - ${item[1]}`
-            );
-
-
-        sub.appendChild(btn);
-
-    });
-
-
-    const list =
-        products.filter(
-            p => p.category === category
-        );
-
-
-    renderProductGrid(
-        list,
-        "genericProducts"
-    );
-
-
-    showPage(
-        "genericCategoryPage"
-    );
-
-
-    history.replaceState(
-        null,
-        "",
-        `#${category}`
-    );
-
-}
-
-
-/* =========================================================
-   SHOP
-========================================================= */
-
-function openShop(
-    category,
-    gender,
-    subcategory,
-    title
-){
-
-    currentProducts =
-        products.filter(p => {
-
-            if(
-                p.category !== category
-            )
-                return false;
-
-
-            if(
-                gender &&
-                p.gender !== gender
-            )
-                return false;
-
-
-            if(
-                subcategory &&
-                p.subcategory !== subcategory
-            )
-                return false;
-
-
-            return true;
-
-        });
-
-
-    document.getElementById(
-        "shopTitle"
-    ).textContent =
-        title || "Products";
-
-
-    document.getElementById(
-        "shopDescription"
-    ).textContent =
-        `${currentProducts.length} products available`;
-
-
-    document.getElementById(
-        "shopBreadcrumb"
-    ).textContent =
-        `Home / ${category}${gender ? " / " + gender : ""}${subcategory ? " / " + subcategory : ""}`;
-
-
-    document.getElementById(
-        "shopSubcategories"
-    ).innerHTML = "";
-
-
-    renderProductGrid(
-        currentProducts,
-        "productGrid"
-    );
-
-
-    showPage(
-        "shopPage"
-    );
-
-
-    history.replaceState(
-        null,
-        "",
-        `#shop/${category}/${gender || "all"}/${subcategory || "all"}`
-    );
-
-}
-
-
-/* =========================================================
-   PRODUCT GRID
-========================================================= */
-
-function renderProductGrid(
-    list,
-    containerId
-){
-
-    const container =
-        document.getElementById(
-            containerId
-        );
-
-
-    if(!container)
-        return;
-
-
-    if(!list.length){
-
-        container.innerHTML = `
-
-            <div
-                class="empty"
-                style="grid-column:1/-1"
-            >
-
-                <h2>
-                    No products yet
-                </h2>
-
-                <p>
-                    Products will appear here when added.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        list
-            .map(product =>
-                productCard(product)
-            )
-            .join("");
-
-}
-
-
-/* =========================================================
-   PRODUCT CARD
-========================================================= */
-
-function productCard(product){
-
-    const wished =
-        wishlist.includes(
-            product.id
-        );
-
-
-    const image =
-        product.image
-        ?
-        `<img src="${escapeHtml(product.image)}" alt="">`
-        :
-        product.icon;
-
-
-    return `
-
-        <div class="product-card">
-
-
-            <div
-                class="product-image"
-                onclick="openProduct(${product.id})"
-                style="cursor:pointer"
-            >
-
-                ${image}
-
-
-                <button
-                    class="wishlist"
-                    onclick="
-                        event.stopPropagation();
-                        toggleWishlist(${product.id})
-                    "
-                >
-                    ${wished ? "♥" : "♡"}
-                </button>
-
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <div class="product-brand">
-                    ${escapeHtml(product.brand)}
-                </div>
-
-
-                <div
-                    class="product-name"
-                    onclick="openProduct(${product.id})"
-                    style="cursor:pointer"
-                >
-                    ${escapeHtml(product.name)}
-                </div>
-
-
-                <div class="product-meta">
-
-
-                    <div class="product-price">
-                        ₹${product.price.toLocaleString("en-IN")}
-                    </div>
-
-
-                    <div class="rating">
-                        ★ ${product.rating}
-                    </div>
-
-
-                </div>
-
-
-                <div class="card-actions">
-
-
-                    <button
-                        onclick="openProduct(${product.id})"
-                    >
-                        View
-                    </button>
-
-
-                    <button
-                        class="add"
-                        onclick="addToCart(${product.id})"
-                    >
-                        Add
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   PRODUCT DETAILS
-========================================================= */
-
-function openProduct(id){
-
-    const product =
-        products.find(
-            p => p.id === id
-        );
-
-
-    if(!product)
-        return;
-
-
-    currentProduct =
-        product;
-
-
-    document.getElementById(
-        "detailBrand"
-    ).textContent =
-        product.brand;
-
-
-    document.getElementById(
-        "detailName"
-    ).textContent =
-        product.name;
-
-
-    document.getElementById(
-        "detailPrice"
-    ).textContent =
-        "₹" +
-        product.price.toLocaleString(
-            "en-IN"
-        );
-
-
-    document.getElementById(
-        "detailRating"
-    ).textContent =
-        "★".repeat(
-            Math.round(product.rating)
-        ) +
-        ` ${product.rating}`;
-
-
-    document.getElementById(
-        "detailDescription"
-    ).textContent =
-        product.description;
-
-
-    const image =
-        product.image
-        ?
-        `<img src="${escapeHtml(product.image)}" alt="">`
-        :
-        product.icon;
-
-
-    document.getElementById(
-        "detailImage"
-    ).innerHTML =
-        image;
-
-
-    const storeButton =
-        document.getElementById(
-            "storeButton"
-        );
-
-
-    const link =
-        product.clueLink ||
-        product.storeUrl;
-
-
-    storeButton.onclick = () => {
-
-        if(
-            link &&
-            link !== "https://example.com"
-        ){
-
-            window.open(
-                link,
-                "_blank",
-                "noopener,noreferrer"
-            );
-
-        }
-        else{
-
-            showToast(
-                "Store link has not been added yet."
-            );
-
-        }
-
-    };
-
-
-    showPage(
-        "productPage"
-    );
-
-
-    history.replaceState(
-        null,
-        "",
-        `#product/${product.id}`
-    );
-
-}
-
-
-/* =========================================================
-   SIZE
-========================================================= */
-
-function selectSize(button){
-
-    document
-        .querySelectorAll(".size-btn")
-        .forEach(btn =>
-            btn.classList.remove(
-                "active"
-            )
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
-}
-
-
-/* =========================================================
-   CART
-========================================================= */
-
-function addToCart(id){
-
-    const existing =
-        cart.find(
-            item => item.id === id
-        );
-
-
-    if(existing){
-
-        existing.qty++;
-
-    }
-    else{
-
-        cart.push({
-            id:id,
-            qty:1
-        });
-
-    }
-
-
-    saveCart();
-
-    updateCartCount();
-
-    showToast(
-        "Product added to cart"
-    );
-
-}
-
-
-function addCurrentProductToCart(){
-
-    if(currentProduct){
-
-        addToCart(
-            currentProduct.id
-        );
-
-    }
-
-}
-
-
-function saveCart(){
-
-    localStorage.setItem(
-        "gridGearCart",
-        JSON.stringify(cart)
-    );
-
-}
-
-
-function updateCartCount(){
-
-    const count =
-        cart.reduce(
-            (total,item) =>
-                total + item.qty,
-            0
-        );
-
-
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
-
-
-    if(cartCount){
-
-        cartCount.textContent =
-            count;
-
-    }
-
-}
-
-
-function changeQuantity(
-    id,
-    amount
-){
-
-    const item =
-        cart.find(
-            x => x.id === id
-        );
-
-
-    if(!item)
-        return;
-
-
-    item.qty += amount;
-
-
-    if(item.qty <= 0){
-
-        cart =
-            cart.filter(
-                x => x.id !== id
-            );
-
-    }
-
-
-    saveCart();
-
-    updateCartCount();
-
-    renderCart();
-
-}
-
-
-function removeFromCart(id){
-
-    cart =
-        cart.filter(
-            x => x.id !== id
-        );
-
-
-    saveCart();
-
-    updateCartCount();
-
-    renderCart();
-
-}
-
-
-function renderCart(){
-
-    const container =
-        document.getElementById(
-            "cartContent"
-        );
-
-
-    if(!cart.length){
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <h2>
-                    Your cart is empty
-                </h2>
-
-                <p>
-                    Add some products to your cart.
-                </p>
-
-
-                <button
-                    class="primary-btn"
-                    style="margin-top:20px"
-                    onclick="navigate('fashion')"
-                >
-                    Start Shopping
-                </button>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    let subtotal = 0;
-
-
-    const itemsHTML =
-        cart.map(item => {
-
-            const product =
-                products.find(
-                    p => p.id === item.id
-                );
-
-
-            if(!product)
-                return "";
-
-
-            subtotal +=
-                product.price *
-                item.qty;
-
-
-            const image =
-                product.image
-                ?
-                `<img src="${escapeHtml(product.image)}" alt="">`
-                :
-                product.icon;
-
-
-            return `
-
-                <div class="cart-item">
-
-
-                    <div class="cart-image">
-                        ${image}
-                    </div>
-
-
-                    <div>
-
-
-                        <div class="cart-name">
-                            ${escapeHtml(product.name)}
-                        </div>
-
-
-                        <div class="cart-price">
-                            ₹${product.price.toLocaleString("en-IN")}
-                        </div>
-
-
-                        <div class="qty">
-
-
-                            <button
-                                onclick="changeQuantity(${product.id},-1)"
-                            >
-                                −
-                            </button>
-
-
-                            <strong>
-                                ${item.qty}
-                            </strong>
-
-
-                            <button
-                                onclick="changeQuantity(${product.id},1)"
-                            >
-                                +
-                            </button>
-
-
-                        </div>
-
-
-                        <button
-                            class="remove-btn"
-                            onclick="removeFromCart(${product.id})"
-                        >
-                            Remove
-                        </button>
-
-
-                    </div>
-
-
-                    <strong>
-                        ₹${(
-                            product.price *
-                            item.qty
-                        ).toLocaleString("en-IN")}
-                    </strong>
-
-
-                </div>
-
-            `;
-
-        })
-        .join("");
-
-
-    container.innerHTML = `
-
-        <div class="cart-layout">
-
-
-            <div class="cart-items">
-                ${itemsHTML}
-            </div>
-
-
-            <div class="summary">
-
-
-                <h2>
-                    Order Summary
-                </h2>
-
-
-                <div class="summary-row">
-
-                    <span>
-                        Subtotal
-                    </span>
-
-                    <span>
-                        ₹${subtotal.toLocaleString("en-IN")}
-                    </span>
-
-                </div>
-
-
-                <div class="summary-row">
-
-                    <span>
-                        Delivery
-                    </span>
-
-                    <span>
-                        FREE
-                    </span>
-
-                </div>
-
-
-                <div class="summary-total">
-
-                    <span>
-                        Total
-                    </span>
-
-                    <span>
-                        ₹${subtotal.toLocaleString("en-IN")}
-                    </span>
-
-                </div>
-
-
-                <button
-                    class="checkout-btn"
-                    onclick="checkout()"
-                >
-                    Proceed to Checkout
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-    `;
-
-}
-
-
-function checkout(){
-
-    showToast(
-        "Checkout will use the selected store/affiliate link."
-    );
-
-}
-
-
-/* =========================================================
-   WISHLIST
-========================================================= */
-
-function toggleWishlist(id){
-
-    if(wishlist.includes(id)){
-
-        wishlist =
-            wishlist.filter(
-                x => x !== id
-            );
-
-
-        showToast(
-            "Removed from wishlist"
-        );
-
-    }
-    else{
-
-        wishlist.push(id);
-
-
-        showToast(
-            "Added to wishlist"
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "gridGearWishlist",
-        JSON.stringify(wishlist)
-    );
-
-
-    renderWishlist();
-
-}
-
-
-function addCurrentToWishlist(){
-
-    if(currentProduct){
-
-        toggleWishlist(
-            currentProduct.id
-        );
-
-    }
-
-}
-
-
-function renderWishlist(){
-
-    const list =
-        products.filter(
-            p =>
-                wishlist.includes(
-                    p.id
-                )
-        );
-
-
-    renderProductGrid(
-        list,
-        "wishlistGrid"
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function handleSearch(event){
-
-    if(event.key !== "Enter")
-        return;
-
-
-    const query =
-        event.target.value
-            .trim()
-            .toLowerCase();
-
-
-    if(!query)
-        return;
-
-
-    const results =
-        products.filter(p => {
-
-            return (
-
-                p.name
-                    .toLowerCase()
-                    .includes(query)
-
-                ||
-
-                p.brand
-                    .toLowerCase()
-                    .includes(query)
-
-                ||
-
-                p.category
-                    .toLowerCase()
-                    .includes(query)
-
-                ||
-
-                p.subcategory
-                    .toLowerCase()
-                    .includes(query)
-
-            );
-
-        });
-
-
-    document.getElementById(
-        "shopTitle"
-    ).textContent =
-        `Search: ${event.target.value}`;
-
-
-    document.getElementById(
-        "shopDescription"
-    ).textContent =
-        `${results.length} products found`;
-
-
-    currentProducts =
-        results;
-
-
-    renderProductGrid(
-        results,
-        "productGrid"
-    );
-
-
-    showPage(
-        "shopPage"
-    );
-
-
-    history.replaceState(
-        null,
-        "",
-        "#search"
-    );
-
-}
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-function toggleFilter(){
-
-    const panel =
-        document.getElementById(
-            "filterPanel"
-        );
-
-
-    panel.style.display =
-        panel.style.display === "none"
-        ?
-        "block"
-        :
-        "none";
-
-}
-
-
-function applyFilters(){
-
-    const min =
-        Number(
-            document.getElementById(
-                "minPrice"
-            ).value
-        ) || 0;
-
-
-    const max =
-        Number(
-            document.getElementById(
-                "maxPrice"
-            ).value
-        ) || Infinity;
-
-
-    const filtered =
-        currentProducts.filter(
-            p =>
-                p.price >= min &&
-                p.price <= max
-        );
-
-
-    renderProductGrid(
-        filtered,
-        "productGrid"
-    );
-
-}
-
-
-function clearFilters(){
-
-    document.getElementById(
-        "minPrice"
-    ).value = "";
-
-
-    document.getElementById(
-        "maxPrice"
-    ).value = "";
-
-
-    renderProductGrid(
-        currentProducts,
-        "productGrid"
-    );
-
-}
-
-
-/* =========================================================
-   SORT
-========================================================= */
-
-function sortProducts(){
-
-    const type =
-        document.getElementById(
-            "sortSelect"
-        ).value;
-
-
-    let list =
-        [...currentProducts];
-
-
-    if(type === "low"){
-
-        list.sort(
-            (a,b) =>
-                a.price - b.price
-        );
-
-    }
-
-
-    if(type === "high"){
-
-        list.sort(
-            (a,b) =>
-                b.price - a.price
-        );
-
-    }
-
-
-    if(type === "rating"){
-
-        list.sort(
-            (a,b) =>
-                b.rating - a.rating
-        );
-
-    }
-
-
-    renderProductGrid(
-        list,
-        "productGrid"
-    );
-
-}
-
-
-/* =========================================================
-   AUTH MODAL
-========================================================= */
-
-function openAuthModal(){
-
-    document
-        .getElementById("authModal")
-        .classList.add("show");
-
-}
-
-
-function closeAuthModal(){
-
-    document
-        .getElementById("authModal")
-        .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   SIGN UP
-========================================================= */
-
-async function signupUser(){
-
-    if(!supabaseClient){
-
-        showToast(
-            "Supabase is not connected."
-        );
-
-        return;
-    }
-
-
-    const email =
-        document.getElementById(
-            "authEmail"
-        ).value.trim();
-
-
-    const password =
-        document.getElementById(
-            "authPassword"
-        ).value;
-
-
-    if(!email || !password){
-
-        showToast(
-            "Enter email and password."
-        );
-
-        return;
-    }
-
-
-    const redirectTo =
-        window.location.origin +
-        window.location.pathname;
-
-
-    const {
-        error
-    } =
-        await supabaseClient.auth.signUp({
-
-            email,
-            password,
-
-            options:{
-                emailRedirectTo:
-                    redirectTo
-            }
-
-        });
-
-
-    if(error){
-
-        showToast(
-            error.message
-        );
-
-        return;
-    }
-
-
-    showToast(
-        "Signup successful. Check your email if confirmation is enabled."
-    );
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function loginUser(){
-
-    if(!supabaseClient){
-
-        showToast(
-            "Supabase is not connected."
-        );
-
-        return;
-    }
-
-
-    const email =
-        document.getElementById(
-            "authEmail"
-        ).value.trim();
-
-
-    const password =
-        document.getElementById(
-            "authPassword"
-        ).value;
-
-
-    if(!email || !password){
-
-        showToast(
-            "Enter email and password."
-        );
-
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth
-            .signInWithPassword({
-
-                email,
-                password
-
-            });
-
-
-    if(error){
-
-        showToast(
-            error.message
-        );
-
-        return;
-    }
-
-
-    closeAuthModal();
-
-
-    await updateLoginButton(
-        data.user
-    );
-
-
-    showToast(
-        "Logged in successfully."
-    );
-
-}
-
-
-/* =========================================================
-   UPDATE LOGIN BUTTON
-========================================================= */
-
-async function updateLoginButton(user){
-
-    const button =
-        document.getElementById(
-            "loginButton"
-        );
-
-
-    if(!button)
-        return;
-
-
-    if(user){
-
-        button.textContent =
-            "Account";
-
-
-        button.onclick =
-            async () => {
-
-                if(
-                    confirm(
-                        "Do you want to sign out?"
-                    )
-                ){
-
-                    await supabaseClient.auth.signOut();
-
-
-                    button.textContent =
-                        "Login / Sign up";
-
-
-                    button.onclick =
-                        openAuthModal;
-
-
-                    const adminButton =
-                        document.getElementById(
-                            "adminButton"
-                        );
-
-
-                    if(adminButton){
-
-                        adminButton.style.display =
-                            "none";
-
-                    }
-
-
-                    navigate("home");
-
-                }
-
-            };
-
-
-        await updateAdminButton(
-            user
-        );
-
-    }
-    else{
-
-        button.textContent =
-            "Login / Sign up";
-
-
-        button.onclick =
-            openAuthModal;
-
-
-        await updateAdminButton(
-            null
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   AUTH INITIALIZATION
-========================================================= */
-
-async function initializeAuth(){
-
-    if(!supabaseClient)
-        return;
-
-
-    try{
-
-        const {
-            data
-        } =
-        await supabaseClient.auth.getSession();
-
-
-        if(
-            data &&
-            data.session
-        ){
-
-            await updateLoginButton(
-                data.session.user
-            );
-
-        }
-        else{
-
-            await updateLoginButton(
-                null
-            );
-
-        }
-
-
-        if(
-            window.location.hash.includes(
-                "access_token="
-            )
-        ){
-
-            window.history.replaceState(
-                {},
-                document.title,
-                window.location.pathname +
-                window.location.search
-            );
-
-        }
-
-
-        supabaseClient.auth.onAuthStateChange(
-            async (event,session) => {
-
-                if(session){
-
-                    await updateLoginButton(
-                        session.user
-                    );
-
-                }
-                else{
-
-                    await updateLoginButton(
-                        null
-                    );
-
-                }
-
-            }
-        );
-
-
-    }
-    catch(error){
-
-        console.error(
-            "Auth initialization error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(message){
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(() => {
-
-        toast.classList.remove(
-            "show"
-        );
-
-    },2500);
-
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function scrollToCategories(){
-
-    document.getElementById(
-        "categoriesSection"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-updateCartCount();
-
-initializeAuth();
-
-
-/* =========================================================
-   DIRECT URL ROUTES
-========================================================= */
-
-const initialHash =
-    window.location.hash;
-
-
-if(initialHash === "#fashion"){
-
-    navigate(
-        "fashion"
-    );
-
-}
-else if(initialHash === "#cart"){
-
-    navigate(
-        "cart"
-    );
-
-}
-else if(initialHash === "#wishlist"){
-
-    navigate(
-        "wishlist"
-    );
-
-}
-else if(initialHash === "#admin"){
-
-    navigate(
-        "admin"
-    );
-
-}
-else if(
-    initialHash &&
-    categoryData[
-        initialHash.replace("#","")
-    ]
-){
-
-    navigate(
-        initialHash.replace(
-            "#",
-            ""
-        )
-    );
-
-}
-else{
-
-    navigate(
-        "home"
-    );
-
-}
-
+  }
+
+  const hash=window.location.hash.toLowerCase();
+  if(hash==="#admin" || hash==="#admin-login"){
+    history.replaceState(null,"",window.location.pathname);
+    showPage("login");
+  }
+})();
+
+window.addEventListener("hashchange",()=>{
+  const hash=window.location.hash.toLowerCase();
+  if(hash==="#admin" || hash==="#admin-login"){
+    history.replaceState(null,"",window.location.pathname);
+    showPage("login");
+  }
+});
 </script>
-
-
+<script id="gg-mega-menu-script">
+function closeMegaMenus(){document.querySelectorAll('.gg-menu-wrap.open').forEach(function(x){x.classList.remove('open')})}
+function toggleMegaMenu(id){var el=document.getElementById(id);if(!el)return;var wrap=el.parentElement;var was=wrap.classList.contains('open');closeMegaMenus();if(!was)wrap.classList.add('open')}
+function menuToShop(){showPage('shop');setTimeout(function(){document.getElementById('shop-anchor')?.scrollIntoView({behavior:'smooth',block:'start'})},50);closeMegaMenus()}
+function menCategory(label){setCategory(['Watches','Motorsport','Fitness'].includes(label)?label:'Fashion');menuToShop()}
+function womenCategory(label){setCategory(label==='Beauty'?'Beauty':'Fashion');menuToShop()}
+function beautyCategory(){setCategory('Beauty');menuToShop()}
+function accessoryCategory(){setCategory('Accessories');menuToShop()}
+document.addEventListener('click',function(e){if(!e.target.closest('.gg-menu-wrap'))closeMegaMenus()});
+</script>
+<script id="gg-header-search-script">document.addEventListener('DOMContentLoaded',function(){const h=document.getElementById('ggHeaderSearch'),s=document.getElementById('searchInput');if(h&&s){h.addEventListener('input',function(){s.value=h.value;s.dispatchEvent(new Event('input',{bubbles:true}))});h.addEventListener('keydown',function(e){if(e.key==='Enter'){s.value=h.value;s.dispatchEvent(new Event('input',{bubbles:true}));document.getElementById('shop-anchor')?.scrollIntoView({behavior:'smooth'})}})}});</script>
 </body>
-
 </html>
